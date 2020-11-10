@@ -1,0 +1,5 @@
+ul
+  for group in data
+    li
+      input(type="checkbox" id="newFieldFieldGroupList"+group.id checked="") 
+        label(for="newFieldFieldGroupList"+group.id)#{group.name}

@@ -1,0 +1,12 @@
+form
+  p Select a activity to add it to the activity group
+  input(type="hidden" name="activity_group" value=data[0].id)
+  div(id="activityGroupActivityAddList"
+    hx-get="/admin/components/activities/group/list_add_activity/q/activity_group_activity/rnj/activity?activity_group="+data[0].id
+    hx-trigger="load, sse:activity_group_activity, sse:activity"
+    hx-target="#activityGroupActivityAddList"
+    hx-swap="innerHTML")
+  button(hx-get="/admin/components/activities/group/add_activities_btn/q/activity_group"
+    hx-include="#activityGroupId"
+    hx-target="#activityGroupActivitiesDetails"
+    hx-swap="innerHTML") Close

@@ -1,0 +1,17 @@
+if data[0]
+  div(id="activityGroup"
+    hx-get="/admin/components/activities/group/main/q/activity_group?id="+data[0].id
+    hx-swap="outerHTML"
+    hx-trigger="sse:activity_group"
+    hx-target="#activityGroup")
+    p Activity Group: #{data[0].name}
+    div(id="activityGroupActivitiesList"
+        hx-get="/admin/components/activities/list/q/activity_group_activity/lj/activity?activity_group="+data[0].id
+        hx-trigger="load, sse:activity_group_activity, sse:activity"
+        hx-target="#activityGroupActivitiesList"
+        hx-swap="innerHTML")
+    div(id="activityGroupActivitiesDetails")
+      include ./add_activities_btn.pug
+    div(id="activityGroupEdit")
+      include ./edit_btn.pug
+    input(type="hidden" id="activityGroupId" name="id" value=data[0].id)

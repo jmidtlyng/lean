@@ -1,0 +1,10 @@
+form
+  p New field group form
+  div
+    label(for="newFieldGroupNameInput")
+    input(name="name" value="" id="newFieldGroupNameInput" placeholder="Name")
+  div
+    label(for="newFieldGroupHandleInput")
+    input(name="handle" value="" id="newFieldGroupHandleInput" placeholder="Handle")
+  button(hx-post="/admin/actions/field_group/create" hx-swap="none") Save
+  button(hx-get="/admin/components/fields/groups/new_btn" hx-target="#fieldGroupDetails" hx-swap="innerHTML") Close

@@ -1,0 +1,17 @@
+div(class="inline-block valign--top")
+  h2 Groups:
+  div(id="fieldGroupsList"
+    hx-get="/admin/components/fields/groups/list/q/field_group"
+    hx-trigger="load, sse:field_group"
+    hx-target="#fieldGroupsList"
+    hx-swap="innerHTML")
+  div(id="fieldGroupDetails")
+    include ./groups/new_btn.pug
+div(class="inline-block valign--top")
+  h2 Fields:
+  div(id="fieldGroupFields")
+    div(id="fieldList"
+      hx-get="/admin/components/fields/list/q/field"
+      hx-trigger="load, sse:field"
+      hx-target="#fieldList"
+      hx-swap="innerHTML")

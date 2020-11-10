@@ -1,0 +1,9 @@
+label(for="newFieldTypeSelect") Field Type
+select(name="data_type"
+  hx-get="/admin/components/fields/settings/main/_field_types"
+  hx-trigger="change, load"
+  hx-include="data_type"
+  hx-target="#newFieldTypeSettings"
+  hx-swap="innerHTML")
+  each type, handle in data
+    option(value=handle) #{type.name}

@@ -1,0 +1,4 @@
+for group in data
+  li
+    label(for="entityAddUserFormUserGroupListValue"+group.id) #{group.name}
+    input(type="radio" name="account_group" value=group.id id="entityAddUserFormUserGroupListValue"+group.id)

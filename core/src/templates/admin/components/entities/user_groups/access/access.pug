@@ -1,0 +1,18 @@
+div
+  p User Group access to #{data[0].name}p #{data[0].name} fields
+  div(id="entityTypeFieldList"
+    hx-get="/admin/components/entities/user_groups/fields/list/q/entity_type_field/lj/field?entity_type="+data[0].id
+    hx-trigger="load, sse:entity_type_field"
+    hx-swap="innerHTML"
+    hx-target="#entityTypeFieldList")
+  div(id="entityTypeFieldsControls")
+    include ../fields/add_fields_btn.pug
+  div
+  p #{data[0].name} actions    
+  div(id="entityTypeUserGroupList"
+    hx-get="/admin/components/entities/user_groups/list/q/entity_type_user_group/lj/user_groups?entity_type="+data[0].id
+    hx-trigger="load, sse:entity_type_user_group"
+    hx-swap="innerHTML"
+    hx-target="#entityTypeUserGroupList")
+  div(id="entityTypeUserGroupsControls")
+    include ../user_groups/add_user_groups_btn.pug

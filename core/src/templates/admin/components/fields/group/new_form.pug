@@ -1,0 +1,12 @@
+form
+  p Select a field to add it to the field group
+  input(type="hidden" name="field_group" value=data[0].id)
+  div(id="fieldGroupFieldAddList"
+    hx-get="/admin/components/fields/group/list_add_field/q/field_group_field/rnj/field?field_group="+data[0].id
+    hx-trigger="load, sse:field_group_field, sse:field"
+    hx-target="#fieldGroupFieldAddList"
+    hx-swap="innerHTML")
+  button(hx-get="/admin/components/fields/group/add_fields_btn/q/field_group"
+    hx-include="#fieldGroupId"
+    hx-target="#fieldGroupFieldsDetails"
+    hx-swap="innerHTML") Close

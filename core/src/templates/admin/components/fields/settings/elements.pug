@@ -1,0 +1,47 @@
+if setting.type == "text"
+  if setting.default
+    input(type="text" name=setting.handle value=setting.default)
+  else
+    input(type="text" name=setting.handle value="")
+else if setting.type == "checkboxes"  
+  for option in setting.options
+    if option.default
+      input(type="checkbox" name=setting.handle value=option.handle checked="checked")
+    else
+      input(type="checkbox" name=setting.handle value=option.handle)
+    label #{option.name}
+else if setting.type == "radio"
+  for option in setting.options
+    if option.default
+      input(type="radio" name=setting.handle value=option.handle checked="checked")
+    else
+      input(type="radio" name=setting.handle value=option.handle)
+    label #{option.name}
+else if setting.type == "boolean"
+  input(type="checkbox" name=setting.handle value="true")
+else if setting.type == "number"
+  if setting.default
+    input(type="number" name=setting.handle value=setting.default)    
+  else  
+    input(type="number" name=setting.handle)
+else if setting.type == "integer"
+  if setting.default
+    input(type="number" name=setting.handle step="1" min="0" value=setting.default)    
+  else  
+    input(type="number" name=setting.handle step="1" min="0")
+else if setting.type == "color"
+  if setting.default
+    input(type="color" name=setting.handle value=setting.default)
+  else
+    input(type="color" name=setting.handle)
+else if setting.type == "repeating"
+  include ./repeating/main.pug
+else if setting.type == "source"
+  input(type="hidden" name=setting.handle)
+  div(id="sourceSetting_"+setting.handle
+    hx-get="/admin/components/fields/settings/source/main/q/"+setting.thing
+    hx-trigger="load"
+    hx-swap="innerHTML"
+    hx-target="#sourceSetting_"+setting.handle)
+      
+    

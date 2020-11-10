@@ -1,0 +1,12 @@
+div(class="popup absolute-center")
+  div(class="popup-content pure-u-3-4")
+    button(hx-get="/admin/empty"
+      hx-trigger="click"
+      hx-swap="innerHTML"
+      hx-target="#entityEdit"+requestQuery.entity) Close X
+    p Edit 
+    div(id="entityEditContentForm"+requestQuery.entity
+      hx-get="/admin/components/entities/entity/edit_content_form/_single/"+requestQuery.entity
+      hx-trigger="load, sse:content"
+      hx-swap="innerHTML"
+      hx-target="#entityEditContentForm"+requestQuery.entity)

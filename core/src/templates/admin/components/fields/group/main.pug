@@ -1,0 +1,17 @@
+if data[0]
+  div(id="fieldGroup"
+    hx-get="/admin/components/fields/group/main/q/field_group?id="+data[0].id
+    hx-swap="outerHTML"
+    hx-trigger="sse:field_group"
+    hx-target="#fieldGroup")
+    p Field Group: #{data[0].name}
+    div(id="fieldGroupFieldsList"
+        hx-get="/admin/components/fields/list/q/field_group_field/lj/field?field_group="+data[0].id
+        hx-trigger="load, sse:field_group_field, sse:field"
+        hx-target="#fieldGroupFieldsList"
+        hx-swap="innerHTML")
+    div(id="fieldGroupFieldsDetails")
+      include ./add_fields_btn.pug
+    div(id="fieldGroupEdit")
+      include ./edit_btn.pug
+    input(type="hidden" id="fieldGroupId" name="id" value=data[0].id)

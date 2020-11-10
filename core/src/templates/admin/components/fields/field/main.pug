@@ -1,0 +1,8 @@
+p Field type, constraints, and settings go here.
+form
+  input(type="text" name="name" value=data[0].name)
+  input(type="text" name="handle" value=data[0].handle)
+  button(hx-post="/actions/field/update" hx-vars="id:"+data[0].id hx-swap="none") Update
+form
+  button(hx-post="/actions/field/archive" hx-vars="id:"+data[0].id hx-swap="none") Archive  
+button(hx-get="/admin/components/fields/new_btn" hx-target="#fieldDetails" hx-swap="innerHTML") Close

@@ -1,0 +1,10 @@
+form
+  p New tag group form
+  div
+    label(for="newTagGroupNameInput")
+    input(name="name" value="" id="newTagGroupNameInput" placeholder="Name")
+  div
+    label(for="newTagGroupHandleInput")
+    input(name="handle" value="" id="newTagGroupHandleInput" placeholder="Handle")
+  button(hx-post="/admin/actions/tag_group/create" hx-swap="none") Save
+  button(hx-get="/admin/components/tags/groups/new_btn" hx-target="#tagGroupDetails" hx-swap="innerHTML") Close

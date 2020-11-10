@@ -1,0 +1,6 @@
+ul
+  for field in data
+    li
+      a(hx-post="/admin/actions/entity_type_field/create"
+        hx-swap="none"
+        hx-vars="field:"+field.id+", name:'"+field.name+"'") #{field.name}

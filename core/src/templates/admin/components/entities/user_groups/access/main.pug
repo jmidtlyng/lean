@@ -1,0 +1,31 @@
+div
+  p Access controls for 
+    b #{data[0].name}
+  div
+    p 
+      b General Access
+    div(id="userGroupEntityCrudAccess"
+      hx-get="/admin/components/entities/user_groups/access/crud_access/q/entity_type_account_group_access?entity_type="+data[0].id
+      hx-trigger="load, sse:entity_type_account_group_access"
+      hx-swap="innerHTML"
+      hx-include="#userGroupId"
+      hx-target="#userGroupEntityCrudAccess")
+  div
+    p 
+      b Field Access
+    div(id="userGroupEntityFields"
+      hx-get="/admin/components/entities/user_groups/access/fields/q_field_access/entity_type_field_account_group_access"
+      hx-trigger="load, sse:entity_type_field, sse:entity_type_field_account_group_access"
+      hx-include="#userGroupId, #userGroupAccessEntityTypeId"
+      hx-swap="innerHTML"
+      hx-target="#userGroupEntityFields")
+  div
+    p 
+      b Activity Access
+    div(id="userGroupEntityEvents"
+      hx-get="/admin/components/entities/user_groups/access/activities/q/entity_type_activity_account_group_access/rj/activity" 
+      hx-trigger="load, sse:activity, sse:entity_type_activity_account_group_access"
+      hx-include="#userGroupId, #userGroupAccessEntityTypeId"
+      hx-swap="innerHTML"
+      hx-target="#userGroupEntityEvents")
+  input(type="hidden" id="userGroupAccessEntityTypeId" name="entity_type" value=data[0].id)

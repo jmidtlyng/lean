@@ -1,0 +1,11 @@
+form
+  div
+    label(for="newEntityTypeNameInput")
+    input(name="name" value="" id="newEntityTypeNameInput" placeholder="Name")
+  div
+    label(for="newEntityTypeHandleInput")
+    input(name="handle" value="" id="newEntityTypeHandleInput" placeholder="Handle")
+  button(hx-post="/admin/actions/entity_type/create" hx-swap="none") Save
+  button(hx-get="/admin/components/entities/types/new_type_btn" 
+    hx-swap="innerHTML"
+    hx-target="#newEntityType") close

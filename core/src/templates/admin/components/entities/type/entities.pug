@@ -1,0 +1,22 @@
+div(class="popup absolute-center")
+  div(class="popup-content")
+    button(hx-get="/admin/components/entities/type/main/q/entity_type?id="+data[0].id 
+      hx-swap="innerHTML"
+      hx-target="#entityTypeDetails") Close X
+    p 
+      strong #{data[0].name} 
+      | entities
+    div(id="entityTypeEntityList"
+      hx-get="/admin/components/entities/entity/list/_list/"+data[0].handle
+      hx-trigger="load, sse:entity"
+      hx-swap="innerHTML"
+      hx-target="#entityTypeEntityList")
+    div
+      p Create 
+        strong #{data[0].name} 
+        | entity by entering a name into the field below and submitting 
+      div(id="createNewEntity"
+        hx-get="/admin/components/entities/entity/new/q/entity_type?entity_type="+data[0].id
+        hx-trigger="load"
+        hx-swap="innerHTML"
+        hx-target="#createNewEntity")

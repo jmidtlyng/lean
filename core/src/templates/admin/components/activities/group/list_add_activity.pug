@@ -1,0 +1,4 @@
+ul
+  for activity in data
+    li
+      a(hx-post="/admin/actions/activity_group_activity/create" hx-swap="none" hx-vars="activity:"+activity.id) #{activity.name}

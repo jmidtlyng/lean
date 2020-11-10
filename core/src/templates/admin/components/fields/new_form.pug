@@ -1,0 +1,20 @@
+div(class="popup absolute-center")
+  div(class="popup-content pure-u-3-4") 
+    form
+      div
+        label(for="newFieldNameInput") Field Name
+        input(name="name" value="" id="newFieldNameInput" placeholder="Name")
+      div
+        label(for="newFieldHandleInput") Field Handle
+        input(name="handle" value="" id="newFieldHandleInput" placeholder="Handle")
+      div(id="newFieldTypeSelect"
+        name="data_type"
+        hx-get="/admin/components/fields/type_list/_field_types"
+        hx-trigger="load"
+        hx-target="#newFieldTypeSelect"
+        hx-swap="innerHTML")
+      div(id="newFieldTypeSettings")
+      button(hx-post="/admin/actions/field/create" hx-swap="none") Save
+      button(hx-get="/admin/components/fields/new_btn"
+        hx-target="#fieldDetails"
+        hx-swap="innerHTML") Close X

@@ -1,0 +1,7 @@
+div
+  ul
+    for field in data
+      li
+        a(hx-get="/admin/components/fields/field/main/q/field?id="+field.id hx-target="#fieldDetails" hx-swap="innerHTML") #{field.name}
+  div(id="fieldDetails")
+    include ./new_btn.pug

@@ -1,0 +1,63 @@
+block content
+  div(class="login")
+    div(class="login-background")
+      div(class="pure-u-3-8")
+        div(class="pure-u-3-8")
+        div(class="pure-u-5-8 login-ribbon bbs")
+    div(class="bbs login-container" id="login")
+      div(class="pure-u-3-8 flex")
+        div(class="pure-u-3-8 login-options")
+          div(class="valign--middle")
+            a(class="login-options-option login-options-option--selected") Sign In
+            a(class="login-options-option") Sign Up
+        div(class="pure-u-5-8 login-ribbon padding-v")
+          div(class="pure-u-3-16")
+          img(class="pure-u-5-8" src="/icons/wp-logo-only.png")
+          div(class="pure-u-3-16")
+      form(class="pure-u-5-8 padding-v")
+        div(class="golden-ratio-fill--3-16")
+        div(class="pure-u-5-8")
+          h3
+            strong Sign In
+          div
+            label(for="inputLoginUsername") 
+              strong Email Address
+            input(class="login-input inline-block pure-u-1" type="text" name="username" id="inputLoginUsername")
+          div
+            label(for="inputLoginPassword") 
+              strong Password
+            input(class="login-input inline-block pure-u-1" type="password" name="password" id="inputLoginPassword")
+          div
+            button(class="login-btn bbs--sm bbs--hover"
+              hx-trigger="click"
+              hx-target="#app"
+              hx-post="/auth/login") Log in
+            div(class="text-center")
+              a 
+                b Forgot Password?
+          br
+          div(class="login-divider")
+            span(class="padding-h") 
+              b or
+          div
+            a(class="block bbs--sm a--stripped margin-v--sm padding--sm bbs--hover"
+              id="buttonLoginGoogle"
+              href="/auth/google"
+              hx-target="#login")
+              div
+                span(class="pure-u-1-4")
+                  img(src="/icons/google_g_logo.svg" class="img--icon valign--middle")
+                span(class="valign--middle pure-u-5-8")
+                  strong Sign in with Google
+                span(class="pure-u-1-8")
+            a(class="block bbs--sm a--stripped margin-v--sm padding--sm bbs--hover"
+              id="buttonLoginMsal"
+              href="/auth/msal"
+              hx-target="#login")
+              div
+                span(class="pure-u-1-4")
+                  img(src="/icons/microsoft_logo.svg" class="img--icon valign--middle")
+                span(class="valign--middle pure-u-5-8")
+                  strong Sign in with Microsoft
+                span(class="pure-u-1-8")
+          div(class="golden-ratio-fill--3-16")

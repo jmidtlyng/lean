@@ -1,0 +1,6 @@
+div
+  form
+    input(type="text" name="name" value="")
+    button(hx-post="/admin/actions/entity/create"
+      hx-include="#entityTypeId",
+      hx-swap="none") submit

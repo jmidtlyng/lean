@@ -1,0 +1,17 @@
+div(class="inline-block valign--top")
+  h2 Groups:
+  div(id="tagGroupsList"
+    hx-get="/admin/components/tags/groups/list/q/tag_group"
+    hx-trigger="load, sse:tag_group"
+    hx-target="#tagGroupsList"
+    hx-swap="innerHTML")
+  div(id="tagGroupDetails")
+    include ./groups/new_btn.pug
+div(class="inline-block valign--top")
+  h2 Tags
+  div(id="tagGroupTags")
+    div(id="tagList"
+      hx-get="/admin/components/tags/list/q/tag"
+      hx-trigger="load, sse:tag"
+      hx-target="#tagList"
+      hx-swap="innerHTML")

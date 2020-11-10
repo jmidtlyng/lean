@@ -1,0 +1,6 @@
+ul
+  for group in data
+    li
+      a(hx-get="/admin/components/tags/group/main/q/tag_group?id="+group.id hx-target="#tagGroupTags" hx-swap="innerHTML") #{group.name}
+  li 
+    a(hx-get="/admin/components/tags/list/q/tag" hx-target="#tagGroupTags" hx-swap="innerHTML") All

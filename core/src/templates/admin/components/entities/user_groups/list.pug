@@ -1,0 +1,8 @@
+div
+  ul
+    for userGroup in data
+      li
+        a(hx-get="/admin/components/entities/user_groups/main/q/account_group?id="+userGroup.id 
+          hx-swap="innerHTML"
+          hx-target="#userGroupDetails") #{userGroup.name}
+  div(id="userGroupDetails")

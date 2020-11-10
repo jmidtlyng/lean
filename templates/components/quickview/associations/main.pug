@@ -1,0 +1,15 @@
+div(class="bbs")
+  div(id="entityPopupDetailContainer")
+  table
+    thead
+      tr
+        for handle in searchResultFields
+          if entityFieldAccess[handle]
+            th #{entityFieldAccess[handle].name}
+    tbody
+      for row in data
+        tr
+          for handle in searchResultFields
+            if entityFieldAccess[handle]
+              td
+                include ./elements.pug

@@ -1,0 +1,31 @@
+div(class="popup absolute-center")
+  div(class="popup-content pure-u-3-4")  
+    button(hx-get="/admin/empty"
+      hx-trigger="click"
+      hx-swap="innerHTML"
+      hx-target="#entityEdit"+requestQuery.entity) Close X
+    div
+      p #{requestQuery.name} Users
+      ul(id="entityUserList"+requestQuery.entity
+        hx-get="/admin/components/entities/entity/user_list/q/entity_account/lj/account?entity="+requestQuery.entity
+        hx-trigger="load, sse:entity_account"
+        hx-swap="innerHTML"
+        hx-target="#entityUserList"+requestQuery.entity)
+    form
+      p Add user
+      input(type="hidden" name="entity" value=requestQuery.entity)
+      div
+        p User Group:
+        ul(id="entityAddUserFormUserGroupList"+requestQuery.entity
+          hx-get="/admin/components/entities/entity/attach_user_group_list/q/account_group?entity_type="+requestQuery.entityType
+          hx-trigger="load"
+          hx-swap="innerHTML"
+          hx-target="#entityAddUserFormUserGroupList"+requestQuery.entity)
+      div
+        p User:
+        ul(id="entityAddUserFormUserList"+requestQuery.entity
+          hx-get="/admin/components/entities/entity/attach_user_list/q/entity_account/rnj/account?entity="+requestQuery.entity
+          hx-trigger="load, sse:entity_account"
+          hx-swap="innerHTML"
+          hx-target="#entityAddUserFormUserList"+requestQuery.entity)
+      button(hx-post="/admin/actions/entity_account/create" hx-swap="none") Attach

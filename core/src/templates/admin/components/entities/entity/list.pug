@@ -1,0 +1,15 @@
+ul
+  for entity in entities
+    li
+      p #{entity.name}
+      button(hx-get="/admin/components/entities/entity/edit_content?entity="+entity.entity
+        hx-trigger="click"
+        hx-swap="innerHTML"
+        hx-target="#entityEdit"+entity.entity) Content
+      button(hx-get="/admin/components/entities/entity/attach_user"
+        hx-trigger="click"
+        hx-vars="entity:"+entity.entity+", entityType:"+entity.entity_type_id+", name:'"+entity.name+"'"
+        hx-include="entity, entityType, name"
+        hx-swap="innerHTML"
+        hx-target="#entityEdit"+entity.entity) Users
+      div(id="entityEdit"+entity.entity)

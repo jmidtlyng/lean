@@ -1,0 +1,7 @@
+ul
+  for activity in data
+    li
+      span #{activity.name}&nbsp;
+      form
+        input(type="hidden" name="activity" value=activity.id)
+        include ./activity_access.pug

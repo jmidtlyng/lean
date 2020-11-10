@@ -1,0 +1,437 @@
+{
+  "text": {
+    "name": "Text",
+    "dataTypes": [{
+        "type": "character varying",
+        "default": true }],
+    "settings": [
+        {
+          "name": "Placeholder Text",
+          "type": "text",
+          "handle": "placeholder",
+          "default": "Enter text here"
+        },
+        {
+          "name": "Character Limit",
+          "type": "integer",
+          "handle": "limit",
+          "default": 280
+        },
+        {
+          "name": "Allow Line Breaks",
+          "type": "boolean",
+          "handle": "line_breaks",
+          "default": false
+        }
+    ]
+  },
+  "asset": {
+    "name": "Asset",
+    "dataTypes": [{
+        "type": "character varying",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Upload Location",
+        "type": "text",
+        "handle": "location",
+        "default": "/public/assets/images"
+      },
+      {
+        "name": "Restrict File Types",
+        "type": "checkboxes",
+        "handle": "types",
+        "default": ["png","pdf","jpg","jpeg","svg"],
+        "options": [
+          {
+            "name": "Image",
+            "handle": "img",
+            "default": true
+          },
+          {
+            "name": "Compressed",
+            "handle": "zip",
+            "default": true
+          },
+          {
+            "name": "Excel",
+            "handle": "excel",
+            "default": true
+          },
+          {
+            "name": "HTML",
+            "handle": "html",
+            "default": true
+          },
+          {
+            "name": "PDF",
+            "handle": "pdf",
+            "default": true
+          },
+          {
+            "name": "Word",
+            "handle": "word",
+            "default": true
+          }
+        ]
+      },
+      {
+        "name": "Validate",
+        "type": "boolean",
+        "handle": "validate",
+        "default": false
+      }
+    ]
+  },
+  "lightswitch": {
+    "name": "Lightswitch",
+    "dataTypes": [{
+        "type": "boolean",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Default",
+        "type": "boolean",
+        "handle": "default",
+        "default": true
+      }
+    ]
+  },
+  "checkboxes": {
+    "name": "Checkboxes",
+    "dataTypes": [{
+        "type": "boolean[]",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Options",
+        "type": "repeating",
+        "handle": "options",
+        "fields": [
+          {
+            "name": "Label",
+            "type": "text",
+            "handle": "label"
+          },
+          {
+            "name": "Value",
+            "type": "text",
+            "handle": "value"
+          },
+          {
+            "name": "Default",
+            "type": "default",
+            "handle": "default"
+          },
+          {
+            "name": "Position",
+            "type": "integer",
+            "handle": "position"
+          }
+        ]
+      }
+    ]
+  },
+  "color": {
+    "name": "Color",
+    "dataTypes": [{
+        "type": "character varying(10)",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Default",
+        "type": "color",
+        "handle": "default",
+        "default": "ffffff"
+      }
+    ]
+  },
+  "date_time": {
+    "name": "Date/Time",
+    "dataTypes": [{
+        "type": "timestamp with time zone",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Display",
+        "type": "radio",
+        "handle": "display",
+        "options": [
+          {
+            "name": "Date",
+            "handle": "date",
+            "default": true
+          },
+          {
+            "name": "Time",
+            "handle": "time"
+          },
+          {
+            "name": "Date/Time",
+            "handle": "datetime"
+          }
+        ]
+      }
+    ]
+  },
+  "dropdown": {
+    "name": "Dropdown",
+    "dataTypes": [{
+        "type": "character varying",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Options",
+        "type": "repeating",
+        "handle": "options",
+        "fields": [
+          {
+            "name": "Value",
+            "type": "text",
+            "handle": "value"
+          },
+          {
+            "name": "Position",
+            "type": "integer",
+            "handle": "position"
+          },
+          {
+            "name": "Default",
+            "type": "default",
+            "handle": "default"
+          }
+        ]
+      }
+    ]
+  },
+  "email": {
+    "name": "Email",
+    "dataTypes": [{
+        "type": "character varying(100)",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Placeholder Text",
+        "type": "text",
+        "handle": "placeholder",
+        "default": "Enter text here"
+      }
+    ]
+  },
+  "entities": {
+    "name": "Entities",
+    "dataTypes": [{
+        "type": "association",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Source",
+        "type": "source",
+        "handle": "source",
+        "thing": "entity_type"
+      },
+      {
+        "name": "Limit",
+        "type": "integer",
+        "handle": "limit"
+      },
+      {
+        "name": "Allow Self-Relations",
+        "type": "boolean",
+        "handle": "self_relations",
+        "default": false
+      },
+      {
+        "name": "Validate Related Entries",
+        "type": "boolean",
+        "handle": "validate",
+        "default": false
+      }
+    ]
+  },
+  "number": {
+    "name": "Number",
+    "dataTypes": [{
+        "type": "float",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Default",
+        "type": "number",
+        "handle": "default"
+      },
+      {
+        "name": "Min",
+        "type": "number",
+        "handle": "min"
+      },
+      {
+        "name": "Max",
+        "type": "number",
+        "handle": "max"
+      },
+      {
+        "name": "Decimal",
+        "type": "integer",
+        "handle": "decimal"
+      },
+      {
+        "name": "Prefix Text",
+        "type": "text",
+        "handle": "prefix"
+      },
+      {
+        "name": "Suffix Text",
+        "type": "text",
+        "handle": "suffix"
+      }
+    ]
+  },
+  "radio": {
+    "name": "Radio",
+    "dataTypes": [{
+        "type": "integer",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Options",
+        "type": "repeating",
+        "handle": "options",
+        "fields": [
+          {
+            "name": "Value",
+            "type": "text",
+            "handle": "value"
+          },
+          {
+            "name": "Position",
+            "type": "integer",
+            "handle": "position"
+          },
+          {
+            "name": "Default",
+            "type": "default",
+            "handle": "default"
+          }
+        ]
+      }
+    ]
+  },
+  "table": {
+    "name": "Table",
+    "dataTypes": [{
+        "type": "jsonb",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Columns",
+        "type": "repeating",
+        "handle": "columns",
+        "fields": [
+          {
+            "name": "Heading",
+            "type": "text",
+            "handle": "value"
+          },
+          {
+            "name": "Handle",
+            "type": "text",
+            "handle": "handle"
+          },
+          {
+            "name": "Type",
+            "type": "radio",
+            "options": [
+              {
+                "name": "Checkbox",
+                "handle": "checkbox"
+              },
+              {
+                "name": "Color",
+                "handle": "color"
+              },
+              {
+                "name": "Dropdown",
+                "handle": "dropdown"
+              },
+              {
+                "name": "Email",
+                "handle": "email"
+              },
+              {
+                "name": "Multi-line Text",
+                "handle": "large_text"
+              },
+              {
+                "name": "Number",
+                "handle": "number"
+              },
+              {
+                "name": "Single-line Text",
+                "handle": "text",
+                "default": true
+              },
+              {
+                "name": "Time",
+                "handle": "time"
+              },
+              {
+                "name": "URL",
+                "handle": "url"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Min",
+        "type": "integer",
+        "handle": "min"
+      },
+      {
+        "name": "Max",
+        "type": "integer",
+        "handle": "max"
+      },
+      {
+        "name": "New Row Label",
+        "type": "text",
+        "handle": "new_row_lbl"
+      }
+    ]
+  },
+  "tags": {
+    "name": "Tags",
+    "dataTypes": [{
+        "type": "association",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Source",
+        "type": "source",
+        "handle": "source",
+        "thing": "tag_group"
+      },
+      {
+        "name": "Validate",
+        "type": "boolean",
+        "handle": "validate",
+        "default": false
+      }
+    ]
+  },
+  "url": {
+    "name": "URL",
+    "dataTypes": [{
+        "type": "character varying",
+        "default": true }],
+    "settings": [
+        {
+          "name": "Placeholder Text",
+          "type": "text",
+          "handle": "placeholder",
+          "default": "Enter text here"
+        }
+      ]
+  }
+}

@@ -1,0 +1,10 @@
+- var entityFieldAccess = currentUser.access[entity.entity_type_handle].fields
+- var selfFieldAccess = {}
+if entity.account_group_handle != null
+  - entityFieldAccess = {...entityFieldAccess, ...currentUser.access[entity.entity_type_handle].userGroups[entity.account_group_handle].fields}
+each value, handle in entity
+  if entityFieldAccess[handle] && (entityFieldAccess[handle].read || entityFieldAccess[handle].write)
+    div
+      p 
+        strong #{entityFieldAccess[handle].name}:
+      include ./elements.pug

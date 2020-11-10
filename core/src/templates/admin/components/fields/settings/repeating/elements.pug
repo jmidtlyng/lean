@@ -1,0 +1,39 @@
+if field.type == "text"
+  label #{field.name}
+  if field.default
+    input(type="text" name=field.handle value=field.default)
+  else
+    input(type="text" name=field.handle value="")
+else if field.type == "checkboxes"
+  for option in field.options
+    input(type="checkbox" name=field.handle value=option)
+    label #{option}
+else if field.type == "radio"
+  for option in field.options
+    input(type="radio" name=field.handle value=option)
+    label #{option}
+else if field.type == "options"
+  select(name=field.handle)
+    for option in field.options
+      option(value=option) #{option}
+else if field.type == "boolean"
+  input(type="checkbox" name=field.handle value="true")
+else if field.type == "integer"
+  if field.default
+    input(type="number" name=field.handle value=field.default)    
+  else  
+    input(type="number" name=field.handle)
+else if field.type == "integer"
+  if field.default
+    input(type="number" name=field.handle step="1" min="0" value=field.default)    
+  else  
+    input(type="number" name=field.handle step="1" min="0")
+else if field.type == "default"
+  - var repeatingDefaultMatch = Math.random()
+  input(type="hidden" name="repeating_default_match" value=repeatingDefaultMatch)
+  input(type="radio" name=field.handle value=repeatingDefaultMatch)
+else if field.type == "color"
+  if field.default
+    input(type="color" name=field.handle value=field.default)
+  else
+    input(type="color" name=field.handle)

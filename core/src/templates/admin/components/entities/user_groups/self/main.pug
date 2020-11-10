@@ -1,0 +1,19 @@
+div
+  p Entity Access controls for itself
+  div
+    p 
+      b Field Access
+    div(id="userGroupSelfFields"
+      hx-get="/admin/components/entities/user_groups/self/fields/q_field_access/self_field_account_group_access" 
+      hx-trigger="load, sse:entity_type_field, sse:self_field_account_group_access"
+      hx-include="#entityTypeId, #userGroupId"
+      hx-swap="innerHTML"
+      hx-target="#userGroupSelfFields")
+  div
+    p 
+      b Activity Access
+    div(id="userGroupSelfEvents"
+      hx-get="/admin/components/entities/user_groups/self/activities/q/self_activity_account_group_access/rj/activity" 
+      hx-trigger="load, sse:self_activity_account_group_access"
+      hx-swap="innerHTML"
+      hx-target="#userGroupSelfEvents")

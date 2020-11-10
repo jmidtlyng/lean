@@ -1,0 +1,7 @@
+div
+  ul
+    for activity in data
+      li
+        a(hx-get="/admin/components/activities/activity/main/q/activity?id="+activity.id hx-target="#activityDetails" hx-swap="innerHTML") #{activity.name}
+  div(id="activityDetails")
+    include ./new_btn.pug

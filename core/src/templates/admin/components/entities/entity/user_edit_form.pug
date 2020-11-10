@@ -1,0 +1,6 @@
+form
+  input(type="hidden" name="id" value=data[0].id)
+  button(hx-post="/admin/actions/entity_account/archive") archive
+  button(hx-get="/admin/components/entities/entity/user_edit_btn/q/entity_account?id="+data[0].id
+    hx-swap="innerHTML"
+    hx-target="#entityUserListUserUserEdit"+data[0].account) close

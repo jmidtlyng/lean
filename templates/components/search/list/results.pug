@@ -1,0 +1,18 @@
+if currentUser.access.job
+  - var access = currentUser.access.job
+  div(id="listRestultsTblWrapper")
+    table(id="listRestultsTbl")
+      thead
+        tr
+          for handle, field in access
+            th #{ field.name }
+      tbody
+        for entity in entities
+          tr
+            for handle, field in access
+              td #{ field.name }
+  script(src="/js/vendor/grid.min.js")
+  link(href="/css/vendor/mermaid.min.css" rel="stylesheet")
+  script(src="/js/list.js" defer)
+else
+  p No access

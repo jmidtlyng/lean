@@ -1,0 +1,10 @@
+div
+  div(class="inline-block valign--top")
+    div(id="entityTypeList"
+      hx-get="/admin/components/entities/types/list/q/entity_type"
+      hx-trigger="load, sse:entity_type"
+      hx-swap="innerHTML"
+      hx-target="#entityTypeList")
+    div(id="newEntityType" class="inline-block valign--top")
+      include ./types/new_type_btn.pug
+  div(id="entityTypeDetails" class="inline-block valign--top margin-h--sm")

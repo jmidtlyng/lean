@@ -1,0 +1,14 @@
+div(class="popup absolute-center")
+  div(class="popup-content")
+    form
+      input(type="hidden" name="entity_type" value=data[0].id)
+      p 
+        span Click a field to add it to #{data[0].name}
+      div(id="entityTypeFieldNewList"
+        hx-get="/admin/components/entities/fields/list_new/q/entity_type_field/rnj/field?entity_type="+data[0].id
+        hx-trigger="load, sse:entity_type_field"
+        hx-swap="innerHTML"
+        hx-target="#entityTypeFieldNewList")
+    button(hx-get="/admin/components/entities/fields/add_fields_btn/q/entity_type?id="+data[0].id
+      hx-swap="innerHTML"
+      hx-target="#entityTypeFieldsControls") Close x

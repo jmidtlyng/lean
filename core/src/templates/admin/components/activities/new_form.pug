@@ -1,0 +1,9 @@
+form
+  div
+    label(for="newActivityNameInput")
+    input(name="name" value="" id="newActivityNameInput" placeholder="Name")
+  div
+    label(for="newActivityGroupHandleInput")
+    input(name="handle" value="" id="newActivityHandleInput" placeholder="Handle")
+  button(hx-post="/admin/actions/activity/create" hx-swap="none") Save
+  button(hx-get="/admin/components/activities/new_btn" hx-target="#activityDetails" hx-swap="innerHTML") Close

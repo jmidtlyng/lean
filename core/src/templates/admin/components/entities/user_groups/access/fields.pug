@@ -1,0 +1,7 @@
+ul
+  for field in data
+    li
+      span #{field.name}&nbsp;
+      form
+        input(type="hidden" name="entity_type_field" value=field.entity_type_field_id)
+        include ./field_access.pug

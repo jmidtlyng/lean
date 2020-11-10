@@ -1,0 +1,6 @@
+ul
+  for group in data
+    li
+      a(hx-get="/admin/components/fields/group/main/q/field_group?id="+group.id hx-target="#fieldGroupFields" hx-swap="innerHTML") #{group.name}
+  li 
+    a(hx-get="/admin/components/fields/list/q/field" hx-target="#fieldGroupFields" hx-swap="innerHTML") All

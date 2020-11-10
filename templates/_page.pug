@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title The Junk Drawer™
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="htmx-config" content='{"historyEnabled":false,"defaultSettleDelay":0}')
+    link(rel="stylesheet" href="/css/base.css")
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css")
+    link(rel="stylesheet" href="/css/utils.css")
+    link(rel="stylesheet" href="/css/wp.css")
+  body(style="padding:20px;font-family: sans-serif" hx-sse="connect:/events")
+    script(src="/js/vendor/htmx.min.js")
+    div(id="app")
+      block content

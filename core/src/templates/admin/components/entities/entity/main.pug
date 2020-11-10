@@ -1,0 +1,16 @@
+div
+  div(id="entityAddUserForm"+data[0].id
+      hx-get="/admin/components/entities/entity/attach_user/q/entity?id="+data[0].id
+      hx-trigger="load"
+      hx-swap="innerHTML"
+      hx-target="#entityAddUserForm"+data[0].id)
+div
+  p Edit #{data[0].name} content
+  form
+    input(type="hidden" name="entity" value=data[0].id)
+    input(type="hidden" name="name" value=data[0].name)
+    div(id="entityEditContent"+data[0].id
+        hx-get="/admin/components/entities/entity/edit_content/q/entity_type_field/lj/field?entity_type="+data[0].entity_type
+        hx-trigger="load, sse:content"
+        hx-swap="innerHTML"
+        hx-target="#entityEditContent"+data[0].id)

@@ -1,0 +1,10 @@
+form
+  p New activity group form
+  div
+    label(for="newActivityGroupNameInput")
+    input(name="name" value="" id="newActivityGroupNameInput" placeholder="Name")
+  div
+    label(for="newActivityGroupHandleInput")
+    input(name="handle" value="" id="newActivityGroupHandleInput" placeholder="Handle")
+  button(hx-post="/admin/actions/activity_group/create" hx-swap="none") Save
+  button(hx-get="/admin/components/activities/groups/new_btn" hx-target="#activityGroupDetails" hx-swap="innerHTML") Close

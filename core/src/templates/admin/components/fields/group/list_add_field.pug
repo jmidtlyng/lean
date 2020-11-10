@@ -1,0 +1,4 @@
+ul
+  for field in data
+    li
+      a(hx-post="/admin/actions/field_group_field/create" hx-swap="none" hx-vars="field:"+field.id) #{field.name}

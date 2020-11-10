@@ -1,0 +1,23 @@
+if data.length > 0
+  ul
+    for entityType in data
+      li
+        a(hx-get="/admin/components/entities/user_groups/access/main/q/entity_type?id="+entityType.id 
+          hx-swap="innerHTML"
+          hx-target="#userGroupEntityCrudDetails")
+          span #{entityType.name}&nbsp;
+            if entityType.create == null || (!entityType.access && !entityType.create && !entityType.archive)
+              span | none
+            else 
+              if entityType.access
+                span | access
+              if entityType.create
+                span | create
+              if entityType.archive
+                span | archive
+    li
+      a(hx-get="/admin/components/entities/user_groups/self/main" 
+        hx-swap="innerHTML"
+        hx-target="#userGroupEntityCrudDetails") Self
+else 
+  p Create types

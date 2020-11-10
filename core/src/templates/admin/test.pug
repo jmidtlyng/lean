@@ -1,0 +1,7 @@
+extends ./_layout.pug
+append content
+  ul
+    for type in entities.types()
+        li
+          span name: #{type.name} 
+          span handle: #{type.handle}

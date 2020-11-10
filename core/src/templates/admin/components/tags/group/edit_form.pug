@@ -1,0 +1,8 @@
+p Edit Tag Group #{data[0].name}
+form
+  input(type="text" name="name" value=data[0].name)
+  input(type="text" name="handle" value=data[0].handle)
+  button(hx-post="/actions/tag_group/update" hx-vars="id:"+data[0].id hx-swap="none") Update
+form
+  button(hx-post="/actions/tag_group/archive" hx-vars="id:"+data[0].id hx-swap="none") Archive
+button(hx-get="/admin/components/tags/group/edit_btn/q/tag_group?id="+data[0].id hx-target="#tagGroupEdit" hx-swap="innerHTML") Close

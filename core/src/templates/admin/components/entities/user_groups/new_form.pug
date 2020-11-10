@@ -1,0 +1,15 @@
+div(class="popup absolute-center")
+  div(class="popup-content")
+    form
+      p Create new user group for #{data[0].name}
+      div
+        label(for="newUserGroupNameInput") Name:
+        input(name="name" value="" id="newUserGroupNameInput" placeholder="Name")
+      div
+        label(for="newUserGroupeHandleInput") Handle:
+        input(name="handle" value="" id="newUserGroupHandleInput" placeholder="Handle")
+      input(type="hidden" name="entity_type" value=data[0].id)
+      button(hx-post="/admin/actions/account_group/create" hx-swap="none") Save
+      button(hx-get="/admin/components/entities/user_groups/add_user_group_btn/q/entity_type?id="+data[0].id 
+        hx-swap="innerHTML"
+        hx-target="#entityTypeUserGroupsControls") Close X

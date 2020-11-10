@@ -1,0 +1,8 @@
+div
+  p 
+    strong #{entity.name.value}
+  each field, handle in entity
+    p 
+      strong #{field.name}
+    include ./elements.pug
+  div(id="entityEditContentFormAssociationEdit")

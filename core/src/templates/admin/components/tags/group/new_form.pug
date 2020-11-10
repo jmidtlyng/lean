@@ -1,0 +1,12 @@
+form
+  p Select a tag to add it to the tag group
+  input(type="hidden" name="tag_group" value=data[0].id)
+  div(id="tagGroupTagAddList"
+    hx-get="/admin/components/tags/group/list_add_tag/q/tag_group_tag/rnj/tag?tag_group="+data[0].id
+    hx-trigger="load, sse:tag_group_tag, sse:tag"
+    hx-target="#tagGroupTagAddList"
+    hx-swap="innerHTML")
+  button(hx-get="/admin/components/tags/group/add_tags_btn/q/tag_group"
+    hx-include="#tagGroupId"
+    hx-target="#tagGroupTagsDetails"
+    hx-swap="innerHTML") Close

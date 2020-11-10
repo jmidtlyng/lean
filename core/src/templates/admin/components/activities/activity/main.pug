@@ -1,0 +1,8 @@
+p Activity type, constraints, and settings go here.
+form
+  input(type="text" name="name" value=data[0].name)
+  input(type="text" name="handle" value=data[0].handle)
+  button(hx-post="/admin/actions/activity/update" hx-vars="id:"+data[0].id hx-swap="none") Update
+form
+  button(hx-post="/admin/actions/activity/archive" hx-vars="id:"+data[0].id hx-swap="none") Archive  
+button(hx-get="/admin/components/activities/new_btn" hx-target="#activityDetails" hx-swap="innerHTML") Close

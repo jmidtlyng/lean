@@ -1,0 +1,9 @@
+for field in setting.fields
+  include ./elements.pug
+button(id="fieldSettingsRepeaterNewRowBtn"
+  hx-get="/admin/components/fields/settings/main/_field_types"
+  hx-vars="data_type:'"+requestQuery.data_type+"'"
+  hx-include="data_type"
+  hx-trigger="click"
+  hx-target="#fieldSettingsRepeaterNewRowBtn"
+  hx-swap="outerHTML") Add Row +

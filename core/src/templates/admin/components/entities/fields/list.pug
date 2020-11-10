@@ -1,0 +1,8 @@
+div
+  ul
+    for entityTypeField in data
+      li
+        a(hx-get="/admin/components/entities/fields/edit_form/q/entity_type_field?id="+entityTypeField.id
+          hx-swap="innerHTML"
+          hx-target="#entityTypeFieldEditArea") #{entityTypeField.name}
+  div(id="entityTypeFieldEditArea")

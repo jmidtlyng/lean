@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "yk",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "nodemon --inspect src/app.js",
+    "start": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@microsoft/microsoft-graph-client": "^2.0.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "isomorphic-fetch": "^3.0.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^1.18.11",
+    "passport": "^0.4.0",
+    "passport-azure-ad": "^4.3.0",
+    "passport-google-oauth": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "pg-promise": "^10.5.2",
+    "pug": "^3.0.0",
+    "ws": "^7.3.1"
+  }
+}

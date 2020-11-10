@@ -1,0 +1,17 @@
+div(class="inline-block valign--top")
+  h2 Groups:
+  div(id="activityGroupsList"
+    hx-get="/admin/components/activities/groups/list/q/activity_group"
+    hx-trigger="load, sse:activity_group"
+    hx-target="#activityGroupsList"
+    hx-swap="innerHTML")
+  div(id="activityGroupDetails")
+    include ./groups/new_btn.pug
+div(class="inline-block valign--top")
+  h2 Activities
+  div(id="activityGroupActivities")
+    div(id="activityList"
+      hx-get="/admin/components/activities/list/q/activity"
+      hx-trigger="load, sse:activity"
+      hx-target="#activityList"
+      hx-swap="innerHTML")

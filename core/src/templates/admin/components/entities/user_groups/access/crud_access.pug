@@ -1,0 +1,62 @@
+if data[0]
+  span
+    label(for="access") Access
+    if data[0].access
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_account_group_access/update"
+        hx-vars="access: false, id: "+data[0].id
+        hx-swap="none"
+        checked="checked")
+    else
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_account_group_access/update"
+        hx-vars="access: true, id: "+data[0].id
+        hx-swap="none")
+  span
+    label(for="create") Create
+    if data[0].create
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_account_group_access/update"
+        hx-vars="create: false, id: "+data[0].id
+        hx-swap="none"
+        checked="checked")
+    else
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_account_group_access/update"
+        hx-vars="create: true, id: "+data[0].id
+        hx-swap="none")      
+  span
+    label(for="archive") Archive
+    if data[0].archive
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_account_group_access/update"
+        hx-vars="archive: false, id: "+data[0].id
+        hx-swap="none"
+        checked="checked")
+    else
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_account_group_access/update"
+        hx-vars="archive: true, id: "+data[0].id
+        hx-swap="none")
+else
+  span
+    label Access
+    input(type="checkbox"
+      hx-post="/admin/actions/entity_type_account_group_access/create"
+      hx-vars="access: true"
+      hx-include="#userGroupId, #userGroupAccessEntityTypeId"
+      hx-swap="none")
+  span
+    label Create
+    input(type="checkbox"
+      hx-post="/admin/actions/entity_type_account_group_access/create"
+      hx-vars="create: true"
+      hx-include="#userGroupId, #userGroupAccessEntityTypeId"
+      hx-swap="none")
+  span
+    label Archive
+    input(type="checkbox"
+      hx-post="/admin/actions/entity_type_account_group_access/create"
+      hx-vars="archive: true"
+      hx-include="#userGroupId, #userGroupAccessEntityTypeId"
+      hx-swap="none")

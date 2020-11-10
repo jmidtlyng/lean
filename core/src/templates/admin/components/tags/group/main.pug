@@ -1,0 +1,17 @@
+if data[0]
+  div(id="tagGroup"
+    hx-get="/admin/components/tags/group/main/q/tag_group?id="+data[0].id
+    hx-swap="outerHTML"
+    hx-trigger="sse:tag_group"
+    hx-target="#tagGroup")
+    p Tag Group: #{data[0].name}
+    div(id="tagGroupTagsList"
+        hx-get="/admin/components/tags/list/q/tag_group_tag/lj/tag?tag_group="+data[0].id
+        hx-trigger="load, sse:tag_group_tag, sse:tag"
+        hx-target="#tagGroupTagsList"
+        hx-swap="innerHTML")
+    div(id="tagGroupTagsDetails")
+      include ./add_tags_btn.pug
+    div(id="tagGroupEdit")
+      include ./edit_btn.pug
+    input(type="hidden" id="tagGroupId" name="id" value=data[0].id)

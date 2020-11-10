@@ -1,0 +1,16 @@
+div(class="popup absolute-center")
+  div(class="popup-content")
+    button(hx-get="/admin/components/entities/user_groups/list/q/account_group?entity_type="+data[0].entity_type 
+      hx-swap="innerHTML"
+      hx-target="#entityTypeUserGroupList") Close X
+    p User Group:&nbsp;
+      b #{data[0].name}
+    p Entity type access
+    input(type="hidden" id="userGroupId" value=data[0].id name="account_group")
+    div
+      div(id="userGroupEntityAccess"
+        hx-get="/admin/components/entities/user_groups/access/entities_list/q/entity_type_account_group_access/rj/entity_type?account_group="+data[0].id
+        hx-trigger="load, sse:entity_type, sse:entity_type_account_group_access"
+        hx-swap="innerHTML"
+        hx-target="#userGroupEntityAccess")
+      div(id="userGroupEntityCrudDetails")

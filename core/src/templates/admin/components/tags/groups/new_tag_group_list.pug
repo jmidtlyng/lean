@@ -1,0 +1,5 @@
+ul
+  for group in data
+    li
+      input(type="checkbox" id="newTagGroupList"+group.id checked="") 
+        label(for="newTagGroupList"+group.id)#{group.name}

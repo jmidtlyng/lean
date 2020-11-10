@@ -1,0 +1,7 @@
+ul
+  for entity in data
+    li 
+      a(hx-post="/actions/entity_matrix/create"
+        hx-vars="entity:"+entity.id
+        hx-params="entity, field, parent"
+        hx-swap="none") #{entity.name}

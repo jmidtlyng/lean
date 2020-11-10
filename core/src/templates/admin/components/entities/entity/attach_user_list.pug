@@ -1,0 +1,4 @@
+for user in data
+  li
+    label(for="entityAddUserFormUserListValue"+user.id) #{user.firstname}&nbsp;#{user.lastname}
+    input(type="radio" name="account" value=user.id id="entityAddUserFormUserListValue"+user.id)

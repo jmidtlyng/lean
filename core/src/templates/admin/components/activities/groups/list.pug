@@ -1,0 +1,6 @@
+ul
+  for group in data
+    li
+      a(hx-get="/admin/components/activities/group/main/q/activity_group?id="+group.id hx-target="#activityGroupActivities" hx-swap="innerHTML") #{group.name}
+  li 
+    a(hx-get="/admin/components/activities/list/q/activity" hx-target="#activityGroupActivities" hx-swap="innerHTML") All

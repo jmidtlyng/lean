@@ -1,0 +1,17 @@
+if data.length > 0
+  table
+    thead
+      tr
+        th Name
+    tbody
+      for row in data
+        tr
+          td 
+            form
+              span #{row.name}&nbsp;&nbsp;
+              button(hx-post="/actions/entity_matrix/archive"
+                hx-vars="id:"+row.matrix_id
+                hx-params="id"
+                hx-swap="none") Remove
+else
+  p No entities are associated

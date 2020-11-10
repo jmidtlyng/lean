@@ -1,0 +1,15 @@
+ul
+  for user in data
+    li
+      span #{user.firstname}&nbsp;#{user.lastname}&nbsp;|&nbsp;
+      span(id="entityUserListUserUserGroupName"+user.id
+        hx-get="/admin/components/entities/entity/user_group_name/q/account_group?id="+user.account_group
+        hx-swap="outerHTML"
+        hx-trigger="load"
+        hx-target="#entityUserListUserUserGroupName"+user.id)
+      div(id="entityUserListUserUserEdit"+user.id
+        hx-get="/admin/components/entities/entity/user_edit_btn/q/entity_account"
+        hx-vars="account_group: "+user.account_group+", account: "+user.id+", entity: "+user.entity
+        hx-swap="innerHTML"
+        hx-trigger="load"
+        hx-target="#entityUserListUserUserEdit"+user.id)

@@ -1,0 +1,8 @@
+p Edit field #{data[0].name}
+form
+  button(hx-post="/actions/entity_type_field/archive"
+    hx-vars="id:"+data[0].id
+    hx-swap="none") Archive
+button(hx-get="/admin/components/entities/fields/list/q/entity_type_field?entity_type="+data[0].entity_type
+  hx-target="#entityTypeFieldList"
+  hx-swap="innerHTML") Cancel

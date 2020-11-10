@@ -1,0 +1,9 @@
+form
+  div
+    label(for="newTagNameInput") Tag handle
+    input(name="name" value="" id="newTagNameInput" placeholder="noHashtagNecessary")
+  div
+    label(for="newTagGroupHandleInput") Public &nbsp;&nbsp;&nbsp;
+    input(type="checkbox" name="public" value="true" id="newTagPublicInput")
+  button(hx-post="/admin/actions/tag/create" hx-swap="none") Save
+  button(hx-get="/admin/components/tags/new_btn" hx-target="#tagDetails" hx-swap="innerHTML") Close

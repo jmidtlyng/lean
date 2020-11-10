@@ -1,0 +1,7 @@
+div
+  ul
+    for tag in data
+      li
+        a(hx-get="/admin/components/tags/tag/main/q/tag?id="+tag.id hx-target="#tagDetails" hx-swap="innerHTML") #{tag.name}
+  div(id="tagDetails")
+    include ./new_btn.pug

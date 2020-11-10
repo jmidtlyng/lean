@@ -1,0 +1,46 @@
+if field.account_group == null
+  span
+    label Read
+    input(type="checkbox"
+      hx-post="/admin/actions/entity_type_field_account_group_access/create"
+      hx-vars="read: true"
+      hx-include="#userGroupId"
+      hx-swap="none")
+  span
+    label Write
+    input(type="checkbox"
+      hx-post="/admin/actions/entity_type_field_account_group_access/create"
+      hx-vars="write: true"
+      hx-include="#userGroupId"
+      hx-swap="none")
+else
+  span
+    label(for="access") Read
+    if field.read
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_field_account_group_access/update"
+        hx-vars="read: false, id: "+field.root_id
+        hx-include="read, id"
+        hx-swap="none"
+        checked="checked")
+    else
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_field_account_group_access/update"
+        hx-vars="read: true, id: "+field.root_id
+        hx-include="read, id"
+        hx-swap="none")
+  span
+    label(for="create") Write
+    if field.write
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_field_account_group_access/update"
+        hx-vars="write: false, id: "+field.root_id
+        hx-include="write, id"
+        hx-swap="none"
+        checked="checked")
+    else
+      input(type="checkbox"
+        hx-post="/admin/actions/entity_type_field_account_group_access/update"
+        hx-vars="write: true, id: "+field.root_id
+        hx-include="write, id"
+        hx-swap="none")

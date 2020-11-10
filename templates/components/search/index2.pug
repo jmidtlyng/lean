@@ -1,0 +1,16 @@
+if entities.length > 0
+  - var entityType = entities[0].entity_type_handle
+  - var entityFieldAccess = currentUser.access[entityType].fields
+  - var searchResultFields = ["name"]
+  if entityType == "job"
+    - var searchResultFields = ["job_title"]
+  else if entityType == "client_partner"
+    - var searchResultFields = ["name", "image", "phone", "email"]
+  else if entityType == "hospital"
+    - var searchResultFields = ["name", "state", "or_suites", "beds", "case_volume", "facility_tags"]
+  else if entityType == "director"
+    - var searchResultFields = ["name", "email", "city", "beds", "hospital"]
+    
+  include ./main.pug
+else 
+  p No data avaiable.

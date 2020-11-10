@@ -1,0 +1,23 @@
+div
+  h3 #{entities[0].entity_type_name} search
+div
+  div(id="entityPopupDetailContainer")
+  table
+    thead
+      tr
+        for handle in searchResultFields
+          if entityFieldAccess[handle]
+            th #{entityFieldAccess[handle].name}
+    tbody
+      for entity in entities
+        tr(id="entity_"+entity.entity
+          hx-trigger="click"
+          hx-get="/components/quickview/_single/"+entity.entity
+          hx-vars="type:'"+entity.entity_type_handle+"'"
+          hx-params="type"
+          hx-target="#entityPopupDetailContainer"
+          hx-swap="innerHTML")
+          for handle in searchResultFields
+            if entityFieldAccess[handle]
+              td
+                include ./elements.pug

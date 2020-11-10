@@ -1,0 +1,6 @@
+ul
+  for type in data
+    li
+      a(hx-get="/admin/components/entities/type/main/q/entity_type?id="+type.id 
+        hx-swap="innerHTML"
+        hx-target="#entityTypeDetails") #{type.name}

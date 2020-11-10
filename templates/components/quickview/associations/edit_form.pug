@@ -1,0 +1,15 @@
+div(class="popup absolute-center")
+  div(class="popup-content")
+    button(hx-get="/empty" 
+      hx-swap="innerHTML"
+      hx-target="#entityEditFormAssociations"+requestQuery.field) Close X
+    p Click entity to add to #{requestQuery.title} list
+    form
+      input(type="hidden" name="field" value=+requestQuery.field)
+      input(type="hidden" name="parent" value=+requestQuery.parent)
+      div(id="entityEditContentFormAssociationEditList"
+        hx-get="/components/quickview/associations/edit_form_list/_unassoc"
+        hx-trigger="load, sse:entity_matrix"
+        hx-vars="parent:"+requestQuery.parent+", field:"+requestQuery.field
+        hx-swap="innerHTML"
+        hx-target="#entityEditContentFormAssociationEditList")
