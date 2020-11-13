@@ -32,7 +32,7 @@
   transition: box-shadow 0.4s;
 }
 .bbs--hover:hover {
-  box-shadow: 0px 6px 16px -6px rgba(0, 0, 0, 0.30);  
+  box-shadow: 0px 6px 16px -6px rgba(0, 0, 0, 0.30);
 }
 
 .golden-ratio-fill--1-16,
@@ -148,6 +148,30 @@
 .margin-right--xl {
   margin-right: 2em;
 }
+.margin-top {
+  margin-top: 1em;
+}
+.margin-top--sm {
+  margin-top: 0.5em;
+}
+.margin-top--lg {
+  margin-top: 1.5em;
+}
+.margin-top--xl {
+  margin-top: 2em;
+}
+.margin-bottom {
+  margin-bottom: 1em;
+}
+.margin-bottom--sm {
+  margin-bottom: 0.5em;
+}
+.margin-bottom--lg {
+  margin-bottom: 1.5em;
+}
+.margin-bottom--xl {
+  margin-bottom: 2em;
+}
 
 .padding {
   padding: 1em;
@@ -216,6 +240,38 @@
 }
 .padding-right--xl {
   padding-right: 2em;
+}
+.padding-top {
+  padding-top: 1em;
+}
+.padding-top--sm {
+  padding-top: 0.5em;
+}
+.padding-top--lg {
+  padding-top: 1.5em;
+}
+.padding-top--xl {
+  padding-top: 2em;
+}
+.padding-bottom {
+  padding-bottom: 1em;
+}
+.padding-bottom--sm {
+  padding-bottom: 0.5em;
+}
+.padding-bottom--lg {
+  padding-bottom: 1.5em;
+}
+.padding-bottom--xl {
+  padding-bottom: 2em;
+}
+
+.text-sidenote {
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
 }
 
 .popup {

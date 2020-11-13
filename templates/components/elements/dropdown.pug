@@ -1,0 +1,11 @@
+if field.write
+  select(name=handle)
+    for option in field.settings.options
+      if option.default
+        option(value=option.value selected="selected") #{option.value}
+      else
+        option(value=option.value) #{option.value}
+else
+  for option in field.settings.options
+    if option.default
+      p #{option.value}

@@ -1,0 +1,10 @@
+if field.write
+  form
+    input(class="inline-block" type="url" name=handle value=value)
+    button(class="quickview-field-save__btn" 
+      hx-post="/actions/content/update"
+      hx-vars="id:"+entity.id
+      hx-params="id, "+handle
+      hx-swap="none") 🖫
+else
+  a(href=value target="_blank") #{value}

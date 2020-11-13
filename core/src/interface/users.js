@@ -47,27 +47,31 @@ module.exports = (db) => {
                             	LEFT JOIN (SELECT * FROM entity_type WHERE isarchived = false) \
                             	  AS eta ON eta.id = acs.entity_type \
                               WHERE a.id = $1 AND ag.isarchived = false";
-        var fieldAccessQ = "SELECT DISTINCT f.id AS id, acs.read, acs.write, ef.name AS name, \
-                              f.data_type AS data_type, f.handle AS handle \
-                            FROM entity_type_field_account_group_access AS acs \
-                              LEFT JOIN (SELECT * FROM entity_type_field WHERE isarchived = false) AS ef ON ef.id = acs.entity_type_field \
+        var fieldAccessQ = "SELECT DISTINCT f.id AS id, acs.read, acs.write, ef.name AS name, f.data_type AS data_type, \
+                              f.settings AS settings, f.handle AS handle, ef.list_position \
+                            FROM entity_type_field AS ef \
+                              LEFT JOIN entity_type_field_account_group_access AS acs ON ef.id = acs.entity_type_field \
                               LEFT JOIN (SELECT * FROM field WHERE isarchived = false) AS f ON f.id = ef.field \
-                            WHERE ef.entity_type = $1 AND acs.account_group = $2 AND acs.isarchived = false";
+                            WHERE ef.entity_type = $1 AND acs.account_group = $2 AND ef.isarchived = false \
+                              AND acs.isarchived = false AND (acs.read = TRUE OR acs.write = TRUE) \
+                              ORDER BY ef.list_position";
         var activityAccessQ = "SELECT DISTINCT acs.read, acs.write, acs.activity, act.name AS name, act.handle AS handle \
                                 FROM entity_type_activity_account_group_access AS acs \
                                   LEFT JOIN (SELECT * FROM activity WHERE isarchived = false) AS act ON act.id = acs.activity \
-                                WHERE acs.entity_type = $1 AND acs.account_group = $2 AND acs.isarchived = false";
+                                WHERE acs.entity_type = $1 AND acs.account_group = $2 AND acs.isarchived = false \
+                                  AND (acs.read = TRUE OR acs.write = TRUE)";
         var selfFieldAccessQ = "SELECT DISTINCT f.id AS id, acs.read, acs.write, ef.name AS name, \
                                   f.data_type AS data_type, f.handle AS handle \
                                 FROM self_field_account_group_access AS acs \
                                   LEFT JOIN (SELECT * FROM entity_type_field WHERE isarchived = false) AS ef ON ef.id = acs.entity_type_field \
                                   LEFT JOIN (SELECT * FROM field WHERE isarchived = false) AS f ON f.id = ef.field \
-                                WHERE acs.account_group = $1 AND acs.isarchived = false";
+                                WHERE acs.account_group = $1 AND acs.isarchived = false \
+                                  AND (acs.read = TRUE OR acs.write = TRUE)";
         var selfActivityAccessQ = "SELECT DISTINCT acs.read, acs.write, acs.activity, act.name AS name, act.handle AS handle \
                                     FROM self_activity_account_group_access AS acs \
                                       LEFT JOIN (SELECT * FROM activity WHERE isarchived = false) AS act ON act.id = acs.activity \
-                                    WHERE acs.account_group = $1 AND acs.isarchived = false";
-
+                                    WHERE acs.account_group = $1 AND acs.isarchived = false \
+                                      AND (acs.read = TRUE OR acs.write = TRUE)";
 
         var userGroups = await db.any(userGroupsQ, [id]);
 

@@ -66,22 +66,59 @@ module.exports = (express, api) => {
     } else { next(); }
   });
 
-  router.get('*/_tags', (req, res, next)=>{
+  router.get('*/_tag_search', (req, res, next)=>{
     req.url = req.params[0];
 
-    if(req.query.search && req.query.search.length > 0){
-      api.tag.getTags(req.user.id, req.query.search)
-        .then((entities)=>{
-          res.locals.entities = entities;
+    if(req.query.tag && req.query.tag.length > 0){
+      api.tag.tagSearch(req.user.id, req.query.field, req.query.tag)
+        .then((tags)=>{
+          res.locals.tags = tags;
           next();
         }).catch((e)=>{
           console.log(e);
           next();
         })
     } else {
-      api.tag.getTags(req.user.id)
-        .then((entities)=>{
-          res.locals.entities = entities;
+      api.tag.tagSearch(req.user.id, req.query.field)
+        .then((tags)=>{
+          res.locals.tags = tags;
+          next();
+        }).catch((e)=>{
+          console.log(e);
+          next();
+        })
+    }
+  });
+
+  router.get('*/_tags', (req, res, next)=>{
+    req.url = req.params[0];
+
+    api.tag.getEntityTags(req.user.id, req.query.field, req.query.entity)
+      .then((tags)=>{
+        res.locals.tags = tags;
+        next();
+      }).catch((e)=>{
+        console.log(e);
+        next();
+      })
+  });
+
+  router.get('*/_tags_outer', (req, res, next)=>{
+    req.url = req.params[0];
+
+    if(req.query.tag && req.query.tag.length > 0){
+      api.tag.searchOuterTags(req.query.entity, req.user.id, req.query.field, req.query.tag)
+        .then((tags)=>{
+          res.locals.tags = tags;
+          next();
+        }).catch((e)=>{
+          console.log(e);
+          next();
+        })
+    } else {
+      api.tag.searchOuterTags(req.query.entity, req.user.id, req.query.field)
+        .then((tags)=>{
+          res.locals.tags = tags;
           next();
         }).catch((e)=>{
           console.log(e);
@@ -95,8 +132,8 @@ module.exports = (express, api) => {
 
     if(req.query.search && req.query.search.length > 0){
       api.tag.getGroupTags(req.query.groups, req.user.id, req.query.search)
-        .then((entities)=>{
-          res.locals.entities = entities;
+        .then((tags)=>{
+          res.locals.tags = tags;
           next();
         }).catch((e)=>{
           console.log(e);
@@ -104,8 +141,8 @@ module.exports = (express, api) => {
         })
     } else {
       api.tag.getGroupTags(req.query.groups, req.user.id)
-        .then((entities)=>{
-          res.locals.entities = entities;
+        .then((tags)=>{
+          res.locals.tags = tags;
           next();
         }).catch((e)=>{
           console.log(e);

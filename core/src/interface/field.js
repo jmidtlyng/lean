@@ -18,12 +18,11 @@ module.exports = (db, sse) => {
           } else if(setting.type == "source") {
             settings[setting.handle] = [];
 
-            if(args[setting.handle].length > 1){
+            if( Array.isArray(args[setting.handle]) ){
               for(const source of args[setting.handle]){
                 settings[setting.handle].push(parseInt(source));
               }
             } else { settings[setting.handle].push(parseInt(args[setting.handle])); }
-
           } else if(setting.type == "repeating") {
             const fieldCount = args.value.length,
                 repeatingFieldSettings = [];

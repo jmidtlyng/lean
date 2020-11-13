@@ -1,0 +1,39 @@
+if field.write
+  form
+    if field.settings.limit && field.settings.limit != 0
+      if field.settings.line_breaks
+        if value != null
+          textarea(class="inline-block" value=value name=handle maxlength=field.settings.limit)
+        else if field.settings.placeholder
+          textarea(class="inline-block" value=field.settings.placeholder name=handle maxlength=field.settings.limit)
+        else
+          textarea(class="inline-block" value="" name=handle maxlength=field.settings.limit)
+      else
+        if value != null
+          input(class="inline-block" type="text" value=value name=handle maxlength=field.settings.limit)
+        else if field.settings.placeholder
+          input(class="inline-block" type="text" value=field.settings.placeholder name=handle maxlength=field.settings.limit)
+        else
+          input(class="inline-block" type="text" value="" name=handle maxlength=field.settings.limit)
+    else
+      if field.settings.line_breaks
+        if value != null
+          textarea(class="inline-block" value=value name=handle)
+        else if field.settings.placeholder
+          textarea(class="inline-block" value=field.settings.placeholder name=handle)
+        else
+          textarea(class="inline-block" value="" name=handle)
+      else
+        if value != null
+          input(class="inline-block" type="text" value=value name=handle)
+        else if field.settings.placeholder
+          input(class="inline-block" type="text" value=field.settings.placeholder name=handle)
+        else
+          input(class="inline-block" type="text" value="" name=handle)
+    button(class="quickview-field-save__btn" 
+      hx-post="/actions/content/update"
+      hx-vars="id:"+entity.id
+      hx-params="id, "+handle
+      hx-swap="none") 🖫
+else
+  p #{value}

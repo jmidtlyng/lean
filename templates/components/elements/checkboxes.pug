@@ -1,0 +1,12 @@
+if field.write
+  for checkbox in field.settings.options
+    if checkbox.default
+      input(type="checkbox" value=checkbox.value name=handle checked="checked")
+    else
+      input(type="checkbox" value=checkbox.value name=handle)
+else
+  for checkbox in field.settings.options
+    if checkbox.default
+      input(type="checkbox" value=checkbox.value name=handle checked="checked" disabled)
+    else
+      input(type="checkbox" value=checkbox.value name=handle disabled)

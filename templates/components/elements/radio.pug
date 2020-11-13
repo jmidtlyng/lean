@@ -1,0 +1,5 @@
+for option in field.settings
+  if option.default
+    input(type="radio" value=option.value selected="selected")
+  else
+    input(type="radio" value=option.value)

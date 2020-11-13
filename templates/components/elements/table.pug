@@ -1,0 +1,10 @@
+table
+  thead
+    for column in field.settings.columns
+      td column.name
+  tbody
+    for row in field.value
+      tr
+        for column in field.settings.columns
+          td
+            input(type=column.type name=column.handle value=row[column.handle])
