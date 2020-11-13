@@ -1,134 +1,28 @@
-if entityFieldAccess[handle].data_type == "email"
-  if entityFieldAccess[handle].write
-    form
-      input(type="email" value=value name=handle class="pure-g-u-1-2")
-      button(class="inline-block" 
-        hx-post="/actions/content/update"
-        hx-vars="id:"+entity.id
-        hx-params="id, "+handle
-        hx-swap="none") 🖫
-  else
-    p #{value}
-else if entityFieldAccess[handle].data_type == "checkboxes"
-  if entityFieldAccess[handle].write
-    for checkbox in checkboxes.value
-      if checkbox
-        input(type="checkbox" value='true' name=handle checked="false")
-      else
-        input(type="checkbox" value='false' name=handle)
-else if entityFieldAccess[handle].data_type == "lightswitch"
-  if entityFieldAccess[handle].write
-    form
-      if value
-        input(type="checkbox" value='true' name=handle checked="checked"
-          hx-trigger="click"
-          hx-post="/actions/content/update"
-          hx-vars="id:"+entity.id
-          hx-params="id, "+handle
-          hx-swap="none")
-      else
-        input(type="checkbox" value='false' name=handle
-          hx-trigger="click"
-          hx-post="/actions/content/update"
-          hx-vars="id:"+entity.id
-          hx-params="id, "+handle
-          hx-swap="none")
-  else
-    if value
-      checkbox(checked="checked" disabled="disabled")
-    else
-      checkbox(disabled="disabled")
-else if entityFieldAccess[handle].data_type == "color"
-  if entityFieldAccess[handle].write
-    form
-      input(type="color" name=handle value=value)
-      button(class="inline-block" 
-        hx-post="/actions/content/update"
-        hx-vars="id:"+entity.id
-        hx-params="id, "+handle
-        hx-swap="none") 🖫
-  else
-    span(style="background-color: #"+value) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-else if entityFieldAccess[handle].data_type == "date_time"
-  if entityFieldAccess[handle].write
-    form
-      input(type="datetime-local" name=handle value=value)
-      button(class="inline-block" 
-        hx-post="/actions/content/update"
-        hx-vars="id:"+entity.id
-        hx-params="id, "+handle
-        hx-swap="none") 🖫
-  else
-    p #{value}
-else if entityFieldAccess[handle].data_type == "asset"
-  div(id="contentField_"+entity.entity+"_"+handle
-    hx-get="/admin/parts/image/q_content_image_reload"
-    hx-vars="entityId:"+entity.entity+", handle:"+handle
-    hx-trigger="sse:content"
-    hx-swap="innerHTML"
-    hx-target="#contentField_"+entity.entity+"_"+handle)
-    img(class="img--thumb" src=value)
-  if entityFieldAccess[handle].write
-    form
-      input(class="inline-block" type="text" value=value name=handle)
-      button(class="inline-block" 
-        hx-post="/actions/content/update"
-        hx-vars="id:"+entity.id
-        hx-params="id, "+handle
-        hx-swap="none") 🖫    
-else if entityFieldAccess[handle].data_type == "dropdown"
-  p #{value}
-else if entityFieldAccess[handle].data_type == "number"
-  if entityFieldAccess[handle].write
-    form
-      input(type="number" name=handle value=value)
-      button(class="inline-block" 
-        hx-post="/actions/content/update"
-        hx-vars="id:"+entity.id
-        hx-params="id, "+handle
-        hx-swap="none") 🖫
-  else
-    p #{value}
-else if entityFieldAccess[handle].data_type == "url"
-  if entityFieldAccess[handle].write
-    form
-      input(type="url" name=handle value=value)
-      button(class="inline-block" 
-        hx-post="/actions/content/update"
-        hx-vars="id:"+entity.id
-        hx-params="id, "+handle
-        hx-swap="none") 🖫
-  else
-    p #{value}
-else if entityFieldAccess[handle].data_type == "tags"
-  if entityFieldAccess[handle].write
-    if value && value.length > 0
-      div(id="tagContentField_"+handle
-        hx-get="/admin/components/entities/entity/associations/tags/cm/"+value
-        hx-trigger="load"
-        hx-target="#tagContentField_"+handle
-        hx-swap="innerHTML")
-else if entityFieldAccess[handle].data_type == "entities"
-  div(id="entityContentField_"+handle
-    hx-get="/components/quickview/associations/_assoc"
-    hx-vars="field:"+entityFieldAccess[handle].id+", parent:"+entity.entity
-    hx-trigger="load, sse:entity_matrix"
-    hx-target="#entityContentField_"+handle
-    hx-swap="innerHTML")
-  if entityFieldAccess[handle].write
-    button(hx-get="/components/quickview/associations/edit_form"
-      hx-swap="innerHTML"
-      hx-vars="field:"+entityFieldAccess[handle].id+", parent:"+entity.entity+", title:'"+entityFieldAccess[handle].name+"'"
-      hx-target="#entityEditFormAssociations"+entityFieldAccess[handle].id) Add
-    div(id="entityEditFormAssociations"+entityFieldAccess[handle].id)
-else if entityFieldAccess[handle].data_type == "text"
-  if entityFieldAccess[handle].write
-    form
-      input(class="inline-block" type="text" value=value name=handle)
-      button(class="inline-block" 
-        hx-post="/actions/content/update"
-        hx-vars="id:"+entity.id
-        hx-params="id, "+handle
-        hx-swap="none") 🖫
-  else
-    p #{value}
+if field.data_type == "email"
+  include ../elements/email.pug
+else if field.data_type == "checkboxes"
+  include ../elements/checkboxes.pug
+else if field.data_type == "lightswitch"
+  include ../elements/lightswitch.pug
+else if field.data_type == "color"
+  include ../elements/color.pug
+else if field.data_type == "date_time"
+  include ../elements/date_time.pug
+else if field.data_type == "asset"
+  include ../elements/asset.pug
+else if field.data_type == "dropdown"
+  include ../elements/dropdown.pug
+else if field.data_type == "number"
+  include ../elements/number.pug
+else if field.data_type == "radio"
+  include ../elements/radio.pug
+else if field.data_type == "table"
+  include ../elements/table.pug
+else if field.data_type == "url"
+  include ../elements/url.pug  
+else if field.data_type == "tags"
+  include ../elements/tags.pug
+else if field.data_type == "entities"
+  include ../elements/entities.pug
+else if field.data_type == "text"
+  include ../elements/text.pug

@@ -1,18 +1,33 @@
-if currentUser.access.job
-  - var access = currentUser.access.job
-  div(id="listRestultsTblWrapper")
-    table(id="listRestultsTbl")
+if entities.length > 0
+  if currentUser.access[entities[0].entity_type_handle]
+    - var jobFields = currentUser.access[entities[0].entity_type_handle].fields
+    p(class="text-sidenote") * Hold SHIFT while clicking multiple columns to sort by multiple
+    table(id="listResultsTbl")
       thead
         tr
-          for handle, field in access
+          each field, handle in jobFields
             th #{ field.name }
       tbody
         for entity in entities
+          - var i = 0
           tr
-            for handle, field in access
-              td #{ field.name }
-  script(src="/js/vendor/grid.min.js")
-  link(href="/css/vendor/mermaid.min.css" rel="stylesheet")
-  script(src="/js/list.js" defer)
+            each field, handle in jobFields
+              if i == 0
+                td 
+                  div(class="flex")
+                    span(hx-trigger="click"
+                      hx-get="/components/quickview/_single/"+entity.entity
+                      hx-target="#listResultsQuickview"
+                      hx-swap="innerHTML")
+                      img(class="search-results-quickview-icon" src="/icons/binos.svg")
+                    span #{ entity[handle] }
+              else
+                td 
+                  span #{ entity[handle] }
+              - i++
+    div(id="listResultsTblWrapper")
+    script(defer) grid.init("listResultsTbl", "listResultsTblWrapper");
+  else
+    p No access
 else
-  p No access
+  p No data

@@ -1,0 +1,8 @@
+if access.job && access.job.access
+  a(class="header-nav-node" href="/jobs") Job Search 
+if access.director_of_surgical_services && access.director_of_surgical_services.access
+  a(class="header-nav-node" href="/directors") Director Search 
+if access.hospital && access.hospital.access
+  a(class="header-nav-node" href="/hospitals") Hospital Search  
+if access.client_partner && access.client_partner.userGroups.client_partner
+  a(class="header-nav-node" href="/palindrome") Palindrome 

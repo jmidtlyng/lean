@@ -6,10 +6,10 @@ append content
   link(href="/css/search.css" rel="stylesheet")
   script(src="/js/list.js")
   div
-    h2 Jobs
-    div(id="jobsListView"
-      hx-get="/components/search/list/results/_list/job"
+    h2 Hospitals
+    div(id="hospitalsListView"
+      hx-get="/components/search/list/results/_list/hospital"
       hx-trigger="load, sse:content"
       hx-swap="innerHTML"
-      hx-target="#jobsListView")
+      hx-target="#hospitalsListView")
     div(id="listResultsQuickview")

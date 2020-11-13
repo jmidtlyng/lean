@@ -1,7 +1,10 @@
 /**
  * Login page
  **/
+
 .login {
+  margin:60px auto 0;
+  max-width:800px;
   padding-top: 60px;
   padding-bottom: 60px;
   position: relative;
@@ -77,4 +80,15 @@
   background-color: #fff;
   color: #ededed;
   font-weight: bold;
+}
+
+.tags {
+
+}
+.tags-tag {
+  background-color: #f8f8e8;
+  border-radius: 2px;
+  color: #000;
+  margin: 2px;
+  padding: 4px;
 }

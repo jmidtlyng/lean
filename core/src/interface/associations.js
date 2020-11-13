@@ -30,7 +30,9 @@ module.exports = (db) => {
                   AND parent = $1 AND field = $2) AS em ON em.entity = e.id \
                 LEFT JOIN content AS c ON c.entity = e.id \
                 LEFT JOIN entity_type AS et ON et.id = e.entity_type \
-              WHERE e.isarchived = false AND em.entity IS NULL";
+              WHERE e.isarchived = false AND em.entity IS NULL AND et.id IN \
+                (SELECT e::text::int AS source FROM field, jsonb_array_elements(settings->'source') e \
+                  WHERE id = $2)";
 
         var result = await db.any(q, [parentId, fieldId]);
         return result;

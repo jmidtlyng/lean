@@ -109,10 +109,10 @@ module.exports = (db, sse) => {
     },
     async createEntity(args){
       try {
-        q = "with rows as (INSERT INTO entity (entity_type) VALUES ($1) RETURNING id) \
+        const q = "with rows as (INSERT INTO entity (entity_type) VALUES ($1) RETURNING id) \
                 INSERT INTO content (entity, name) SELECT id, $2 FROM rows";
 
-        var res = await db.none(q, [args.entity_type, args.name]);
+        const res = await db.none(q, [args.entity_type, args.name]);
         sse.blast('entity');
         return res;
       } catch(e) { console.log(e); }

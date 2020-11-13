@@ -2,9 +2,18 @@
 - var selfFieldAccess = {}
 if entity.account_group_handle != null
   - entityFieldAccess = {...entityFieldAccess, ...currentUser.access[entity.entity_type_handle].userGroups[entity.account_group_handle].fields}
-each value, handle in entity
-  if entityFieldAccess[handle] && (entityFieldAccess[handle].read || entityFieldAccess[handle].write)
-    div
-      p 
-        strong #{entityFieldAccess[handle].name}:
-      include ./elements.pug
+div(class="quickview bbs")
+  button(class="quickview-close"
+    hx-get="/empty"
+    hx-trigger="click"
+    hx-swap="innerHTML"
+    hx-target="#listResultsQuickview") X
+  div(class="margin-top--xl")
+    p(class="text-sidenote") Quickview
+  div
+    each field, handle in entityFieldAccess
+      if field.read || field.write
+        - var value = entity[handle]
+        div(class="quickview-field")
+          label(class="quickview-field__lbl") #{entityFieldAccess[handle].name}:
+          include ./elements.pug

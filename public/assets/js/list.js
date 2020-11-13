@@ -1,8 +1,9 @@
-(function () {
-  const tableRef = document.getElementById("listRestultsTbl");
-  const wrapperRef = document.getElementById("listRestultsTblWrapper");
+const grid = {
+  init(tableId, wrapperId){
+    const tableRef = document.getElementById(tableId),
+          wrapperRef = document.getElementById(wrapperId);
 
-  const grid = new Grid({
-    from: tableRef.current,
-  }).render(wrapperRef.current);;
-})();
+    const grid = new gridjs.Grid({ from: tableRef, sort: true }).render(wrapperRef)
+    grid.on("ready", (...args) => htmx.process(wrapperRef));
+  }
+}

@@ -1,0 +1,21 @@
+if field.write
+  form
+    if value
+      input(type="checkbox" value='true' name=handle checked="checked"
+        hx-trigger="click"
+        hx-post="/actions/content/update"
+        hx-vars="id:"+entity.id
+        hx-params="id, "+handle
+        hx-swap="none")
+    else
+      input(type="checkbox" value='false' name=handle
+        hx-trigger="click"
+        hx-post="/actions/content/update"
+        hx-vars="id:"+entity.id
+        hx-params="id, "+handle
+        hx-swap="none")
+else
+  if value
+    checkbox(checked="checked" disabled="disabled")
+  else
+    checkbox(disabled="disabled")

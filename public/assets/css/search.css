@@ -1,0 +1,44 @@
+.quickview {
+  background: #fff;
+  border-radius: 2px;
+  max-width: 800px;
+  max-height: 90%;
+  overflow-y: scroll;
+  position: fixed;
+  padding: 1.5em;
+  right: 10px;
+  top: 10px;
+  width: 90%;
+  z-index: 1;
+}
+.search-results-quickview-icon {
+  cursor: pointer;
+  height: 1em;
+  left: 2px;
+  position: absolute;
+}
+.quickview-close,
+.quickview-close:hover,
+.quickview-close:focus {
+  border-radius: 10px;
+  background: linear-gradient(45deg,transparent,transparent 43%,#000 45%,#000 55%,transparent 57%,transparent),linear-gradient(135deg,#fff,#fff 43%,#000 45%,#000 55%,#fff 57%,#fff);
+  cursor: pointer;
+  height: 36px;
+  margin: 4px;
+  padding: 2px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 36px;
+}
+.quickview-field__lbl {
+  font-size: 1rem;
+}
+.quickview-field-save__btn {
+  background: transparent;
+  cursor: pointer;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  vertical-align: bottom;
+}

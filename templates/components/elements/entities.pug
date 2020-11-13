@@ -1,0 +1,12 @@
+div(id="entityContentField_"+handle
+    hx-get="/components/quickview/associations/_assoc"
+    hx-vars="field:"+field.id+", parent:"+entity.entity
+    hx-trigger="load, sse:entity_matrix"
+    hx-target="#entityContentField_"+handle
+    hx-swap="innerHTML")
+if field.write
+  div(id="entityEditFormAssociations"+field.id)
+  button(hx-get="/components/quickview/associations/edit_form"
+    hx-swap="innerHTML"
+    hx-vars="field:"+field.id+", parent:"+entity.entity+", title:'"+field.name+"'"
+    hx-target="#entityEditFormAssociations"+field.id) Add
