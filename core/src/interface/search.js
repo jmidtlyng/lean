@@ -105,7 +105,6 @@ module.exports = (db) => {
               value: content[field.handle] };
           }
         }
-        console.log(contentObj);
         return contentObj;
       } catch(e) { console.log(e); }
     },
@@ -149,6 +148,127 @@ module.exports = (db) => {
 
         return contentObj;
       } catch(e) { console.log(e); }
+    },
+    async jsonSearch(userId, type, args, access){
+      try {
+        const fields = access[type].fields,
+              matrixedTypes = ["entities", "tags", "checkboxes"];
+        let q = "SELECT ",
+            qParams = [],
+            i = 1,
+            hasSearchTerm = false,
+            dangerSort = [],
+            sortDirections = [],
+            safeSort = [],
+            limit = 0,
+            offset = 0,
+            searchQ = "",
+            sortQ = " c.name";
+
+        if(args.search && args.search.length > 0){
+          hasSearchTerm = true;
+          searchTerm = '%'+ args.search + '%';
+          qParams.push(searchTerm);
+          delete args.search;
+          i++;
+        }
+
+        if(args.sort && args.dir){
+          dangerSort = args.sort.split(',');
+          sortDirections = args.dir.split(',');
+          for(const item of dangerSort){ safeSort.push(false) }
+          delete args.sort;
+          delete args.dir;
+        }
+
+        if(args.limit){
+          limit = args.limit;
+          delete args.limit;
+        }
+
+        if(args.offset){
+          offset = args.offset;
+          delete args.offset;
+        }
+
+        for(const handle in fields){
+          if( matrixedTypes.indexOf(fields[handle].data_type) === -1 ){
+            if(fields[handle].read || fields[handle].write){
+              q += "c." + handle + ", ";
+
+              if(fields[handle].data_type == "text"){
+                if(i > 2){ searchQ += "OR "}
+                searchQ += "c." + handle + " ILIKE $1 "
+              }
+
+              // saving on pg-promise params
+              if(dangerSort.length > 0) {
+                const sortHandleIdx = dangerSort.indexOf(handle);
+                if(sortHandleIdx !== -1){ safeSort[sortHandleIdx] = handle; }
+              }
+            }
+          }
+        }
+
+        q += "ed.entity_type_name, ed.entity_type_handle, ed.entity_type_id, \
+                    g.account_group_name, g.account_group_handle, ed.id AS entity \
+                  FROM (SELECT e.id AS id, et.name AS entity_type_name, \
+                      et.handle AS entity_type_handle, et.id AS entity_type_id \
+                    FROM entity AS e LEFT JOIN entity_type AS et ON et.id = e.entity_type \
+                    WHERE et.isarchived = false AND e.isarchived = false AND et.handle = $"+i
+              + ") AS ed LEFT JOIN content AS c ON c.entity = ed.id \
+                      LEFT JOIN (SELECT ea.entity AS entity, ag.name as account_group_name, \
+                          ag.handle AS account_group_handle \
+                        FROM entity_account AS ea LEFT JOIN account_group AS ag ON ag.id = ea.account_group \
+                        WHERE ea.isarchived = false AND ea.account = " + userId + ") AS g ON g.entity = ed.id";
+        qParams.push(type)
+        i++;
+
+        // used to keep pg-promise params under the 26 param limit
+        if(safeSort.length > 0){
+          for(let n = 0; n < safeSort.length; n++){
+            if(safeSort[n]){
+              const dir = sortDirections[n] == 1 ? "ASC" : "DESC";
+
+              if(n == 0){ sortQ = " " + safeSort[n] + " " + dir; }
+                else { sortQ += ", " + safeSort[n] + " " + dir; }
+            }
+          }
+        }
+
+        let baseline = i + 0;
+
+        for(const prop in args){
+          if(i == baseline){ q += " WHERE"; } else { q += " AND"; }
+          q += " c.$" + i + "~ = ";
+          i++;
+          q += "$" + i;
+          i++;
+
+          qParams.push(prop, args[prop]);
+        }
+
+        if(hasSearchTerm){
+          if(i == baseline){q += " WHERE (" + searchQ +")"; }
+            else { q += " AND (" + searchQ +")"; }
+        }
+
+        q += " ORDER BY" + sortQ;
+
+        if(offset){
+          q += " OFFSET $" + i;
+          qParams.push(offset);
+          i++;
+        }
+
+        if(limit){
+          q += " LIMIT $" + i;
+          qParams.push(limit)
+        }
+
+        var res = await db.any(q, qParams);
+        return res;
+      } catch(e){ throw e }
     }
   }
 }

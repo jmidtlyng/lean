@@ -51,21 +51,6 @@ module.exports = (express, api) => {
     }
   });
 
-  router.get('*/_q_c/:entityId', (req, res, next)=>{
-    if(req.session.user){
-      req.url = req.params[0];
-
-      api.entity.entityContent(req.params.entityId, req.user)
-        .then((data)=>{
-          res.locals.data = data;
-          next();
-        }).catch((e)=>{
-          console.log(e);
-          next();
-        })
-    } else { next(); }
-  });
-
   router.get('*/_tag_search', (req, res, next)=>{
     req.url = req.params[0];
 
@@ -151,21 +136,6 @@ module.exports = (express, api) => {
     }
   });
 
-  router.get('*/cm/:entityIds', (req, res, next)=>{
-    req.url = req.params[0];
-    const entityIds = Array.isArray(req.params.entityIds)
-      ? req.params.entityIds : [req.params.entityIds];
-
-    api.search.entitiesContent(entityIds, req.user)
-      .then((data)=>{
-        res.locals.data = data;
-        next();
-      }).catch((e)=>{
-        console.log(e);
-        next();
-      })
-  });
-
   router.get('*/_assoc', (req, res, next)=>{
     req.url = req.params[0];
 
@@ -203,33 +173,7 @@ module.exports = (express, api) => {
         next();
       })
   });
-/*
-  router.post('/_action/create_assoc', (req, res, next)=>{
-    req.url = req.params[0];
 
-    api.associations.createAssociation(req.query.parent, req.query.child, req.query.handle)
-      .then((data)=>{
-        res.locals.data = data;
-        next();
-      }).catch((e)=>{
-        console.log(e);
-        next();
-      })
-  });
-
-  router.post('/_action/q_archive_assoc', (req, res, next)=>{
-    req.url = req.params[0];
-
-    api.associations.archiveAssociation(req.query.parent, req.query.child, req.query.handle)
-      .then((data)=>{
-        res.locals.data = data;
-        next();
-      }).catch((e)=>{
-        console.log(e);
-        next();
-      })
-  });
-*/
   return {
     basic(){
       router.get('/', (req, res, next)=>{
@@ -253,22 +197,7 @@ module.exports = (express, api) => {
         res.locals.requestQuery = req.query;
         next();
       });
-      /*
-        router.get('/search/:entityType', (req, res, next)=>{
-          req.url = req.params[0];
-          var entityType = req.params.entityType,
-              entityTypeFieldAccess = req.session.user.global[req.params.entityType].fields;
 
-          api.search.typeSearch(entityType, req.query, entityTypeFieldAccess)
-            .then((data)=>{
-              res.locals.data = data;
-              next();
-            }).catch((e)=>{
-              console.log(e);
-              next();
-            })
-        });
-      */
       return router;
     },
     admin(){

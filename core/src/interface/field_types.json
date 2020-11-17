@@ -177,7 +177,7 @@
   "dropdown": {
     "name": "Dropdown",
     "dataTypes": [{
-        "type": "character varying",
+        "type": "integer",
         "default": true }],
     "settings": [
       {
@@ -234,6 +234,32 @@
         "name": "Limit",
         "type": "integer",
         "handle": "limit"
+      },
+      {
+        "name": "Allow Self-Relations",
+        "type": "boolean",
+        "handle": "self_relations",
+        "default": false
+      },
+      {
+        "name": "Validate Related Entries",
+        "type": "boolean",
+        "handle": "validate",
+        "default": false
+      }
+    ]
+  },
+  "pair": {
+    "name": "Pair",
+    "dataTypes": [{
+        "type": "integer",
+        "default": true }],
+    "settings": [
+      {
+        "name": "Source",
+        "type": "source",
+        "handle": "source",
+        "thing": "entity_type"
       },
       {
         "name": "Allow Self-Relations",
