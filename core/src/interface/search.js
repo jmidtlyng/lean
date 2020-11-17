@@ -196,8 +196,8 @@ module.exports = (db) => {
             if(fields[handle].read || fields[handle].write){
               q += "c." + handle + ", ";
 
-              if(fields[handle].data_type == "text"){
-                if(i > 2){ searchQ += "OR "}
+              if(hasSearchTerm && fields[handle].data_type == "text"){
+                if(searchQ !== ""){ searchQ += "OR "}
                 searchQ += "c." + handle + " ILIKE $1 "
               }
 
