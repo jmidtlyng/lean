@@ -1,17 +1,16 @@
 if entities.length > 0
   if currentUser.access[entities[0].entity_type_handle]
-    - var fields = currentUser.access[entities[0].entity_type_handle].fields
-    p(class="text-sidenote") * Hold SHIFT while clicking multiple columns to sort by multiple
+    - var jobFields = currentUser.access[entities[0].entity_type_handle].fields
     table(id="listResultsTbl")
       thead
         tr
-          each field, handle in fields
+          each field, handle in jobFields
             th #{ field.name }
       tbody
         for entity in entities
           - var i = 0
           tr
-            each field, handle in fields
+            each field, handle in jobFields
               if i == 0
                 td 
                   div(class="flex")
@@ -25,8 +24,6 @@ if entities.length > 0
                 td 
                   span #{ entity[handle] }
               - i++
-    div(id="listResultsTblWrapper")
-    script(defer) grid.init("listResultsTbl", "listResultsTblWrapper");
   else
     p No access
 else
