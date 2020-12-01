@@ -13,4 +13,4 @@ How to, for _almost_ all skill levels:
   * Host `localhost`
   * Port `65432`
 
-Any questions? Email, message, or call. Don't hesitate!
+Any questions? Email, message, or call.
