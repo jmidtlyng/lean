@@ -1,0 +1,18 @@
+extends ./_layout.pug
+append content
+  script(src="/js/vendor/grid.min.js")
+  link(href="/css/vendor/mermaid.min.css" rel="stylesheet")
+  link(href="/css/grid.css" rel="stylesheet")
+  link(href="/css/search.css" rel="stylesheet")
+  script(src="/js/list.js")
+  div
+    h2 Quicksearch
+    div
+      label Enter a search term and wait 1 second
+      input(id="quickSearchInput"
+        name="search_term"
+        type="text"
+        hx-trigger="keyup changed delay:1000ms"
+        hx-get="/components/search/quicksearch"
+        hx-target="#listResultsQuickview")
+      div(id="listResultsQuickview")

@@ -103,8 +103,43 @@ module.exports = (db, sse) => {
               entityId: content.entity };
           }
         }
-        console.log(contentObj);
+
         return contentObj;
+      } catch(e) { console.log(e); }
+    },
+    async entitiesByIds(ids){
+      try {
+        let res = [];
+
+        if(ids.length > 0){
+          let q = "SELECT DISTINCT e.id, c.name FROM content AS c LEFT JOIN entity AS e ON e.id = c.entity \
+                    WHERE c.isarchived = false AND c.isarchived = false AND e.id IN($1:csv)";
+          res = await db.any(q, [ids]);
+        }
+
+        return res;
+      } catch(e) { console.log(e); }
+    },
+    async entitiesOutsideIds(ids, types){
+      try {
+        let q = "SELECT DISTINCT e.id, c.name FROM content AS c LEFT JOIN entity AS e ON e.id = c.entity \
+                  WHERE c.isarchived = false AND c.isarchived = false",
+            qParams = [],
+            i = 1;
+
+        if(ids.length > 0){
+          q += " AND e.id NOT IN($1:csv)";
+          qParams.push(ids);
+          i++;
+        }
+
+        if(types.length){
+          q += " AND e.entity_type IN($" + i + ":csv)";
+          qParams.push(types);
+        }
+
+        const res = await db.any(q, qParams);
+        return res;
       } catch(e) { console.log(e); }
     },
     async createEntity(args){

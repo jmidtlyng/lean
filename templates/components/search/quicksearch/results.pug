@@ -1,0 +1,24 @@
+if requestQuery.search_term && requestQuery.search_term.length > 0
+  - var matrixedTypes = ["entities", "tags", "checkboxes"]
+  - var type = requestQuery.entity_type
+  - var fields = currentUser.access[type].fields
+  p(class="text-sidenote") * Hold SHIFT while clicking multiple columns to sort by multiple
+  table(id="quicksearchListResultsTbl_"+type)
+    thead
+      tr
+        each field, handle in fields
+          if matrixedTypes.indexOf(field.data_type) === -1
+            th(name=handle) #{ field.name }
+      tbody
+  div(id="quicikSearchListResultsTblWrapper_"+type)
+  script(defer).
+    const sel_quickSearchTbl = "!{ "quicksearchListResultsTbl_" + type }",
+          sel_quickSearchWrap = "!{ "quicikSearchListResultsTblWrapper_" + type }",
+          searchTerm = "!{requestQuery.search_term}",
+          entityType = "!{type}";
+    console.log(sel_quickSearchTbl);
+    console.log(sel_quickSearchWrap);
+    console.log(searchTerm);
+    console.log(entityType);
+
+    gridQuickSearch.init(sel_quickSearchTbl, sel_quickSearchWrap, searchTerm, entityType);

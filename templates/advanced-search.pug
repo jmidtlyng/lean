@@ -1,0 +1,51 @@
+extends ./_layout.pug
+append content
+  script(src="/js/vendor/grid.min.js")
+  link(href="/css/vendor/mermaid.min.css" rel="stylesheet")
+  link(href="/css/grid.css" rel="stylesheet")
+  link(href="/css/search.css" rel="stylesheet")
+  script(src="/js/list.js")
+  div
+    h2 Advanced Search
+    div
+      if(access.job || access.director_of_surgical_services || access.hospital)
+        p Select what you are searching for:
+        div(id="advancedSearchEntityTypes")
+          if access.job && access.job.access
+            div
+              input(type="checkbox"
+                class="advanced-search-type__checkbox"
+                name="advancedSearchTypeFilter"
+                value="job"
+                hx-trigger="click"
+                hx-include=".advanced-search-type__checkbox"
+                hx-get="/components/search/advanced/fields"
+                hx-target="#advancedSearchFields"
+                hx-swap="innerHTML")
+              label Job
+          if access.director_of_surgical_services && access.director_of_surgical_services.access
+            div
+              input(type="checkbox"
+                class="advanced-search-type__checkbox"
+                name="advancedSearchTypeFilter"
+                value="director_of_surgical_services"
+                hx-trigger="click"
+                hx-include=".advanced-search-type__checkbox"
+                hx-get="/components/search/advanced/fields"
+                hx-target="#advancedSearchFields"
+                hx-swap="innerHTML")
+              label Director
+          if access.hospital && access.hospital.access
+            div
+              input(type="checkbox"
+                class="advanced-search-type__checkbox"
+                name="advancedSearchTypeFilter"
+                value="hospital"
+                hx-trigger="click"
+                hx-include=".advanced-search-type__checkbox"
+                hx-get="/components/search/advanced/fields"
+                hx-target="#advancedSearchFields"
+                hx-swap="innerHTML")
+              label Hospital
+        div(id="advancedSearchFields")
+        div(id="listResultsQuickview")

@@ -1,0 +1,24 @@
+if field.data_type == "email"
+  include ./elements/email.pug
+else if field.data_type == "checkboxes"
+  include ./elements/checkboxes.pug
+else if field.data_type == "lightswitch"
+  include ./elements/lightswitch.pug
+else if field.data_type == "color"
+  include ./elements/color.pug
+else if field.data_type == "date_time"
+  include ./elements/date_time.pug
+else if field.data_type == "dropdown"
+  include ./elements/dropdown.pug
+else if field.data_type == "number"
+  include ./elements/number.pug
+else if field.data_type == "radio"
+  include ./elements/radio.pug
+else if field.data_type == "url"
+  include ./elements/url.pug  
+else if field.data_type == "tags"
+  include ./elements/tags.pug
+else if field.data_type == "entities"
+  include ./elements/entities.pug
+else if field.data_type == "text"
+  include ./elements/text.pug

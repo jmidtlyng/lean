@@ -1,0 +1,16 @@
+- var matrixedTypes = ["entities", "tags", "checkboxes"]
+- var type = requestQuery.entity_type
+- var fields = currentUser.access[type].fields
+p(class="text-sidenote") * Hold SHIFT while clicking multiple columns to sort by multiple
+table(id="listResultsTbl")
+  thead
+    tr
+      each field, handle in fields
+        if matrixedTypes.indexOf(field.data_type) === -1
+          th(name=handle) #{ field.name }
+    tbody
+div(id="listResultsTblWrapper")
+script(defer).
+  const entityType = "!{type}";
+        
+  gridServerSide.init("listResultsTbl", "listResultsTblWrapper", entityType);

@@ -1,5 +1,5 @@
 div(id="tagContentField_"+handle
-  hx-get="/components/tags/attached/_tags"
+  hx-get="/components/elements/parts/tag/attached/_tags"
   hx-vars="field:"+field.id+", entity:"+entity.entity
   hx-trigger="load, sse:tag_matrix"
   hx-target="#tagContentField_"+handle
@@ -10,15 +10,16 @@ if field.write
     input(class="inline-block"
       type="text"
       name="tag"
-      hx-get="/components/tags/search/_tags_outer"
-      hx-trigger="keyup"
+      autocomplete="off"
+      hx-get="/components/elements/parts/tag/search/_tags_outer"
+      hx-trigger="keyup, sse:tag_matrix"
       hx-vars="field:"+field.id+", entity:"+entity.entity
-      hx-include="field, entity, tag"
+      hx-params="field, entity, tag"
       hx-target="#quickviewTagSearch_"+handle
       hx-swap="innerHTML")
     button(class="inline-block"
       hx-trigger="click"
       hx-post="/actions/tag/add"
       hx-vars="field:"+field.id+", entity:"+entity.entity
-      hx-include="field, entity, tag"
+      hx-params="field, entity, tag"
       hx-swap="none") Tag

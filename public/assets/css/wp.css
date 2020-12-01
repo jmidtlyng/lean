@@ -92,3 +92,14 @@
   margin: 2px;
   padding: 4px;
 }
+.tags-tag-remove {
+  cursor: pointer;
+}
+.tags-tag--outer {
+  background-color: #db4d6d;
+  border-radius: 2px;
+  color: #000;
+  cursor: pointer;
+  margin: 2px;
+  padding: 4px;
+}

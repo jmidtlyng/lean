@@ -1,0 +1,13 @@
+- var tempId = Math.floor(Math.random() * 1000)
+div(id="tagContentField_"+handle+"_"+tempId)
+div(class="quickview-field-tag-seach" id="advancedSearchTagSearch_"+handle+"_"+tempId)
+input(class="inline-block"
+  type="text"
+  name="search"
+  autocomplete="off"
+  hx-get="/components/search/advanced/elements/parts/tag/search/_tags_outside_ids"
+  hx-trigger="keyup"
+  hx-vars="field:"+field.id+", fieldHandle:'"+handle+"', tempId:"+tempId
+  hx-include="#tagContentField_"+handle+"_"+tempId+" .advanced-search-tag-assoc"
+  hx-target="#advancedSearchTagSearch_"+handle+"_"+tempId
+  hx-swap="innerHTML")

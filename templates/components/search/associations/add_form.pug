@@ -1,0 +1,23 @@
+- var i = 0
+- var handle = requestQuery.fieldHandle
+- var tempId = requestQuery.tempId
+div(class="popup absolute-center")
+  div(class="popup-content pure-u-3-4")
+    button(class="quickview-close"
+      hx-get="/empty"
+      hx-trigger="click"
+      hx-swap="innerHTML"
+      hx-target="#entityEditFormAssociations_"+handle+"_"+tempId) X
+    div
+      label Filter #{ requestQuery.title }
+      div
+        for entity in entities
+          div
+            input(type="hidden" class="advanced-search-entity-assoc-select" name=handle value=entity.id data-i=i)
+            button(_="on click wait 200ms then remove me.parentElement"
+              hx-get="/components/search/associations/list/_entities_by_ids"
+              hx-include="#entityContentField_"+handle+"_"+tempId+" .advanced-search-entity-assoc, .advanced-search-entity-assoc-select[data-i='"+i+"']"
+              hx-vars="fieldHandle:'"+handle+"', tempId:"+tempId
+              hx-swap="innerHTML"
+              hx-target="#entityContentField_"+handle+"_"+tempId) #{ entity.name }
+          - i++

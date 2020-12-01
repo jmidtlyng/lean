@@ -4,20 +4,14 @@ if data.length > 0
     - fieldAccess = currentUser.access[data[0].parent_type_handle].fields[data[0].field_handle]
   if data.account_group_handle != null
     - fieldAccess = {...fieldAccess, ...currentUser.access[data[0].parent_type_handle].userGroups[data[0].account_group_handle].fields[data[0].field_handle] }
-  table
-    thead
-      tr
-        th Name
-    tbody
-      for row in data
-        tr
-          td 
-            span #{row.name}&nbsp;&nbsp;
-            if fieldAccess.write
-              form(class="inline-block")
-                button(hx-post="/actions/entity_matrix/archive"
-                  hx-vars="id:"+row.matrix_id
-                  hx-params="id"
-                  hx-swap="none") Remove
+  div
+    for row in data 
+      span #{row.name}&nbsp;&nbsp;
+      if fieldAccess.write
+        form(class="inline-block")
+          button(hx-post="/actions/entity_matrix/archive"
+            hx-vars="id:"+row.matrix_id
+            hx-params="id"
+            hx-swap="none") Remove
 else 
   p No data avaiable.

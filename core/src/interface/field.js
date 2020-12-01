@@ -73,13 +73,15 @@ module.exports = (db, sse) => {
 
         if(args.data_type != "entities"
           && args.data_type != "tags"
-          && args.data_type != "dropdown"
-          && args.data_type != "checkboxes"
-          && args.data_type != "radio"){
+          && args.data_type != "checkboxes"){
           const dataType = fieldTypeJson[args.data_type].dataTypes[0].type;
           await db.none("ALTER TABLE content ADD COLUMN $1~ $2^", [args.handle, dataType]);
-        } else if((args.data_type == "dropdown" || args.data_type == "checkboxes"
-          || args.data_type == "radio") && settings.options.length > 0) {
+        }
+
+        if((args.data_type == "dropdown"
+            || args.data_type == "checkboxes"
+            || args.data_type == "radio")
+          && settings.options.length > 0) {
           let optionQ = "INSERT INTO select_option (field, value) VALUES ($1, $2)";
               optionQParams = [res.id, settings.options[0].value];
 
