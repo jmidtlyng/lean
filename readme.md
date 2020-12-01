@@ -1,7 +1,16 @@
-1. Put htmx.min.js (htmx.org) in /public/js/vendor/
-2. Put grid.min.js (gridjs.io) in /public/js/vendor/
-3. Put mermaid.min.css (gridjs.io) in /public/css/vendor/
+# WELCOME TO: The Junk Drawer
+## Enjoy a first-hand experience with Junk
+How to, for _almost_ all skill levels:
+1. Install Git and Docker
+2. Pick out a nice spot on your computer to keep this app using your terminal/command line
+3. Run `git clone https://github.com/WhitmanPartners/CRM.git`
+4. After install is complete, run `docker-compose up`
+5. Wait until you see the message `the_junk_drawer-app | listening on 3000`
+6. [Open localhost:3000](localhost:3000) to peruse Junk
+7. _Optional:_ Connect pgAdmin or your Postgres GUI of choice with the following:
+  * Username `postgres`
+  * Password `password`
+  * Host `localhost`
+  * Port `65432`
 
-Start the app by running start scripts in /core/
-
-Relies on specific Postgres database with specific store procedures. Contact JM for backup to install on your local.
+Any questions? Email, message, or call. Don't hesitate!
