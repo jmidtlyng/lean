@@ -1,11 +1,27 @@
 if field.write
-  select(name=handle)
+  select(name=handle
+    hx-trigger="change"
+    hx-post="/actions/content/update"
+    hx-vars="id:"+entity.id
+    hx-params="id, "+handle
+    hx-swap="none")
+    option(selected="selected") #{ value }
+      if value == null
+        for option in field.settings.options
+          if option.default
+            option(selected value=option.id) #{ option.value }
+          else
+            option(value=option.id) #{ option.value }
+      else
+        for option in field.settings.options
+          if option.id == value
+            option(selected value=option.id) #{ option.value }
+          else
+            option(value=option.id) #{ option.value }
+else
+  if value == null
     for option in field.settings.options
       if option.default
-        option(value=option.value selected="selected") #{option.value}
-      else
-        option(value=option.value) #{option.value}
-else
-  for option in field.settings.options
-    if option.default
-      p #{option.value}
+        p #{ option.value }
+  else
+    p #{ value }

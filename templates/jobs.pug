@@ -8,7 +8,9 @@ append content
   div
     h2 Jobs
     div(id="jobsListView"
-      hx-get="/components/search/list/results/_list/job"
+      hx-get="/components/search/list/server-side"
+      hx-vars="entity_type:'job'"
+      hx-params="entity_type"
       hx-trigger="load, sse:content"
       hx-swap="innerHTML"
       hx-target="#jobsListView")

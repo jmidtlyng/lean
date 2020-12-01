@@ -1,0 +1,15 @@
+if entities.length > 0
+  - var i = 0
+  - var handle = requestQuery.fieldHandle
+  - var tempId = requestQuery.tempId
+  for entity in entities
+    div
+      input(type="hidden" class="advanced-search-entity-assoc" name=handle value=entity.id data-i=i)
+      span(class="padding-h") #{entity.name}
+      button(hx-get="/components/search/associations/list/_entities_by_ids"
+        hx-include="#entityContentField_"+handle+"_"+tempId+" .advanced-search-entity-assoc:not([data-i='"+i+"'])"
+        hx-vars="fieldHandle:'"+handle+"', tempId:"+tempId
+        hx-swap="innerHTML"
+        hx-target="#entityContentField_"+handle+"_"+tempId) X
+    - i++
+    

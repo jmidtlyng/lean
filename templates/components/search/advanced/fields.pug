@@ -1,0 +1,58 @@
+- var access = currentUser.access
+if requestQuery.advancedSearchTypeFilter.length
+  form
+    if Array.isArray(requestQuery.advancedSearchTypeFilter)
+      - var sharedFields = {}
+      - var entityTypes = requestQuery.advancedSearchTypeFilter
+      - var i = 0
+      while i <= entityTypes.length
+        if i < entityTypes.length
+          if access[entityTypes[i]]
+            div(class="advanced-search-entity-type-fields bbs")
+              input(type="hidden" name="entity_type" value=entityTypes[i])
+              label
+                strong #{ access[entityTypes[i]].name }
+              div    
+                each field, handle in access[entityTypes[i]].fields
+                  if i == 0
+                    - sharedFields[handle] = 1
+                  else 
+                    if sharedFields[handle] == i
+                      - sharedFields[handle] ++
+                  div(class="inline-block padding")
+                    div
+                      label #{ field.name }
+                    include ./elements.pug
+        else
+          div(class="advanced-search-entity-type-fields--shared bbs" data-entity-type=handle)
+            label
+              strong Shared fields
+            div
+              input(type="hidden" name="entity_type" value="shared")
+              each count, handle in sharedFields
+                if count == i
+                  - var field = access[entityTypes[1]].fields[handle]
+                  div(class="inline-block padding")
+                    div
+                      label #{ field.name }
+                    include ./elements.pug
+        - i++
+    else
+      - var entityType = requestQuery.advancedSearchTypeFilter
+      if access[entityType]
+        div(class="advanced-search-entity-type-fields bbs")
+          input(type="hidden" name="entity_type" value=entityType)
+          label
+            strong #{ access[entityType].name }
+          div    
+            each field, handle in access[entityType].fields
+              div(class="inline-block padding")
+                div
+                  label #{ field.name }
+                include ./elements.pug
+    button(hx-post="/_advanced_search"
+      hx-trigger="click"
+      hx-target="#advancedSearchResults"
+      hx-swap="innerHTML")
+      strong Search
+    div(id="advancedSearchResults")

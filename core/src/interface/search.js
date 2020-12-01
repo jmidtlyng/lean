@@ -162,6 +162,7 @@ module.exports = (db) => {
             safeSort = [],
             limit = 0,
             offset = 0,
+            selectOptionQ = "",
             searchQ = "",
             sortQ = " c.name";
 
@@ -194,7 +195,12 @@ module.exports = (db) => {
         for(const handle in fields){
           if( matrixedTypes.indexOf(fields[handle].data_type) === -1 ){
             if(fields[handle].read || fields[handle].write){
-              q += "c." + handle + ", ";
+              if(fields[handle].data_type == 'dropdown' || fields[handle].data_type == 'radio'){
+                q += "select_option_" + handle + ".value AS " + handle + ", ";
+                selectOptionQ += " LEFT JOIN select_option AS select_option_" + handle
+                  + " ON select_option_" + handle + ".id = c." + handle;
+                console.log(selectOptionQ);
+              } else { q += "c." + handle + ", "; }
 
               if(hasSearchTerm && fields[handle].data_type == "text"){
                 if(searchQ !== ""){ searchQ += "OR "}
@@ -211,13 +217,15 @@ module.exports = (db) => {
         }
 
         q += "ed.entity_type_name, ed.entity_type_handle, ed.entity_type_id, \
-                    g.account_group_name, g.account_group_handle, ed.id AS entity \
+                    g.account_group_name, g.account_group_handle, ed.id AS entity, \
+                    COUNT(*) OVER() AS results_count \
                   FROM (SELECT e.id AS id, et.name AS entity_type_name, \
                       et.handle AS entity_type_handle, et.id AS entity_type_id \
                     FROM entity AS e LEFT JOIN entity_type AS et ON et.id = e.entity_type \
                     WHERE et.isarchived = false AND e.isarchived = false AND et.handle = $"+i
-              + ") AS ed LEFT JOIN content AS c ON c.entity = ed.id \
-                      LEFT JOIN (SELECT ea.entity AS entity, ag.name as account_group_name, \
+              + ") AS ed LEFT JOIN content AS c ON c.entity = ed.id"
+              + selectOptionQ
+              + " LEFT JOIN (SELECT ea.entity AS entity, ag.name as account_group_name, \
                           ag.handle AS account_group_handle \
                         FROM entity_account AS ea LEFT JOIN account_group AS ag ON ag.id = ea.account_group \
                         WHERE ea.isarchived = false AND ea.account = " + userId + ") AS g ON g.entity = ed.id";
@@ -265,6 +273,135 @@ module.exports = (db) => {
           q += " LIMIT $" + i;
           qParams.push(limit)
         }
+
+        var res = await db.any(q, qParams);
+        return res;
+      } catch(e){ throw e }
+    },
+    async advancedSearch(userId, type, args, access){
+      try {
+        const fields = access[type].fields;
+        let q = "SELECT ",
+            qParams = [userId],
+            i = 2,
+            joinQ = "",
+            searchQ = "",
+            sortQ = " c.name";
+
+        for(const handle in fields){
+          if(fields[handle].read || fields[handle].write){
+            if(fields[handle].data_type == 'dropdown' || fields[handle].data_type == 'radio'){
+              q += "select_option_" + handle + ".value AS " + handle + ", ";
+              joinQ += " LEFT JOIN select_option AS select_option_" + handle
+                + " ON select_option_" + handle + ".id = c." + handle;
+            } else if(fields[handle].data_type == 'entities'){
+              q += "assoc_entity_" + handle + ".name AS " + handle + ", ";
+              joinQ += " LEFT JOIN (SELECT em.parent AS parent, ARRAY_AGG(c.name) AS name, \
+                                      ARRAY_AGG(e.id) AS ids\
+                                    FROM entity_matrix AS em \
+                                      LEFT JOIN field AS f ON f.id = em.field \
+                                      LEFT JOIN entity AS e ON e.id = em.entity \
+                                      LEFT JOIN content AS c ON c.entity = e.id \
+                                    WHERE f.handle = '"+handle+"' GROUP BY parent) AS assoc_entity_"
+                + handle + " ON assoc_entity_" + handle + ".parent = c.entity";
+            } else if(fields[handle].data_type == 'tags'){
+              q += "assoc_tag_" + handle + ".handle AS " + handle + ", ";
+              joinQ += " LEFT JOIN (SELECT tm.entity AS entity, ARRAY_AGG(t.handle) AS handle, \
+                                      ARRAY_AGG(t.id) AS ids \
+                                    FROM tag_matrix AS tm \
+                                      LEFT JOIN field AS f ON f.id = tm.field \
+                                      LEFT JOIN entity AS e ON e.id = tm.entity \
+                                      LEFT JOIN tag AS t ON t.id = tm.entity \
+                                    WHERE (tm.account = $1 OR t.ispublic)  AND f.handle = '"+handle+"' \
+                                      AND tm.isarchived = false AND t.isarchived = false \
+                                    GROUP BY entity) AS assoc_tag_"
+                + handle + " ON assoc_tag_" + handle + ".entity = c.entity";
+            } else { q += "c." + handle + ", "; }
+
+            if(args[handle] && args[handle] != ''){
+              if(searchQ !== ""){ searchQ += " AND"; }
+                else { searchQ += " WHERE"; }
+
+              switch (fields[handle].data_type) {
+                case "text":
+                case "url":
+                case "email":
+                  const searchTerm = "%" + args[handle] + "%";
+                  searchQ += " c." + handle + " ILIKE $" + i;
+                  qParams.push(searchTerm);
+                  i ++;
+                  break;
+                case "date":
+                case "number":
+                  switch (args[(handle+"__evaluator")]) {
+                    case "equalTo":
+                      searchQ += " c." + handle + " = $" + i;
+                      qParams.push(args[handle]);
+                      i++;
+                      break;
+                    case "greaterThan":
+                      searchQ += " c." + handle + " > $" + i;
+                      qParams.push(args[handle]);
+                      i++;
+                      break;
+                    case "greaterThanOrEqualTo":
+                      searchQ += " c." + handle + " >= $" + i;
+                      qParams.push(args[handle]);
+                      i++;
+                      break;
+                    case "lessThan":
+                      searchQ += " c." + handle + " < $" + i;
+                      qParams.push(args[handle]);
+                      i++;
+                      break;
+                    case "lessThanOrEqualTo":
+                      searchQ += " c." + handle + " <= $" + i;
+                      qParams.push(args[handle]);
+                      i++;
+                      break;
+                  }
+                  break;
+                case "dropdown":
+                case "radio":
+                  searchQ += " c." + handle + " = $" + i;
+                  qParams.push(args[handle]);
+                  i++;
+                  break;
+                case "lightswitch":
+                  const searchVal = args[handle] == "true" ? true : false;
+                  searchQ += " c." + handle + " = " + searchVal;
+                  break;
+                case "tags":
+                  searchQ += " ARRAY[$" + i + ":csv]::int[] && assoc_tag_" + handle + '.ids';
+                  qParams.push(args[handle]);
+                  i++;
+                  break;
+                case "entities":
+                  searchQ += " ARRAY[$" + i + ":csv]::int[] && assoc_entity_" + handle + '.ids';
+                  qParams.push(args[handle]);
+                  i++;
+                  break;
+              }
+            }
+          }
+        }
+
+        q += "ed.entity_type_name, ed.entity_type_handle, ed.entity_type_id, \
+                g.account_group_name, g.account_group_handle, ed.id AS entity \
+              FROM (SELECT e.id AS id, et.name AS entity_type_name, \
+                  et.handle AS entity_type_handle, et.id AS entity_type_id \
+                FROM entity AS e LEFT JOIN entity_type AS et ON et.id = e.entity_type \
+                WHERE et.isarchived = false AND e.isarchived = false AND et.handle = $"+i
+              + ") AS ed LEFT JOIN content AS c ON c.entity = ed.id" + joinQ
+              + " LEFT JOIN (\
+                    SELECT ea.entity AS entity, ag.name as account_group_name, \
+                      ag.handle AS account_group_handle \
+                    FROM entity_account AS ea \
+                      LEFT JOIN account_group AS ag ON ag.id = ea.account_group \
+                    WHERE ea.isarchived = false \
+                      AND ea.account = " + userId + ") AS g ON g.entity = ed.id" + searchQ;
+        qParams.push(type)
+        i++;
 
         var res = await db.any(q, qParams);
         return res;

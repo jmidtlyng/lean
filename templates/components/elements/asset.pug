@@ -1,10 +1,4 @@
 img(class="img--thumb" src=value)
-div(id="contentField_"+entity.entity+"_"+handle
-  hx-get="/admin/parts/image/q_content_image_reload"
-  hx-vars="entity:"+entity.entity+", handle:"+handle
-  hx-trigger="sse:content"
-  hx-swap="innerHTML"
-  hx-target="#contentField_"+entity.entity+"_"+handle)
 if field.write
   form
     input(class="inline-block" type="text" value=value name=handle)

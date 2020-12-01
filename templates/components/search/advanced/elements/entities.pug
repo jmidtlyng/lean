@@ -1,0 +1,8 @@
+- var tempId = Math.floor(Math.random() * 1000)
+div(id="entityContentField_"+handle+"_"+tempId)
+div(id="entityEditFormAssociations_"+handle+"_"+tempId)
+button(hx-get="/components/search/associations/add_form/_entities_outside_ids"
+  hx-include="#entityContentField_"+handle+"_"+tempId+" .advanced-search-entity-assoc"
+  hx-vars="field:"+field.id+", title:'"+field.name+"', fieldHandle:'"+handle+"', tempId:"+tempId
+  hx-target="#entityEditFormAssociations_"+handle+"_"+tempId
+  hx-swap="innerHTML") Add

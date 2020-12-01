@@ -3,7 +3,7 @@ if field.write
     if field.settings.limit && field.settings.limit != 0
       if field.settings.line_breaks
         if value != null
-          textarea(class="inline-block" value=value name=handle maxlength=field.settings.limit)
+          textarea(class="inline-block" value=value name=handle maxlength=field.settings.limit) #{value}
         else if field.settings.placeholder
           textarea(class="inline-block" value=field.settings.placeholder name=handle maxlength=field.settings.limit)
         else
@@ -18,7 +18,7 @@ if field.write
     else
       if field.settings.line_breaks
         if value != null
-          textarea(class="inline-block" value=value name=handle)
+          textarea(class="inline-block" value=value name=handle) #{value}
         else if field.settings.placeholder
           textarea(class="inline-block" value=field.settings.placeholder name=handle)
         else

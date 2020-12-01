@@ -1,0 +1,25 @@
+- var access = currentUser.access 
+if access.job && access.job.access
+  div(id="quickSearchJob"
+    hx-trigger="load"
+    hx-target="#quickSearchJob"
+    hx-swap="innerHTML"
+    hx-vars="entity_type:'job'"
+    hx-include="#quickSearchInput"
+    hx-get="/components/search/quicksearch/results")
+if access.director_of_surgical_services && access.director_of_surgical_services.access
+  div(id="quickSearchDirector"
+    hx-trigger="load"
+    hx-target="#quickSearchDirector"
+    hx-swap="innerHTML"
+    hx-vars="entity_type:'director_of_surgical_services'"
+    hx-include="#quickSearchInput"
+    hx-get="/components/search/quicksearch/results")
+if access.hospital && access.hospital.access
+  div(id="quickSearchHospital"
+    hx-trigger="load"
+    hx-target="#quickSearchHospital"
+    hx-swap="innerHTML"
+    hx-vars="entity_type:'hospital'"
+    hx-include="#quickSearchInput"
+    hx-get="/components/search/quicksearch/results")

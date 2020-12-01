@@ -1,0 +1,19 @@
+- var i = 0
+- var handle = requestQuery.fieldHandle
+- var tempId = requestQuery.tempId
+if tags && tags.length > 0
+  div(class="tags")
+    label Select a tag to add:
+    div
+      for tag in tags
+        div(class="inline-block")
+          input(type="hidden"  class="advanced-search-tag-assoc-select" name=handle value=tag.id data-i=i)
+          div(_="on click wait 200ms then remove me.parentElement"
+            class="tags-tag--outer"
+            hx-trigger="click"
+            hx-include="#tagContentField_"+handle+"_"+tempId+" .advanced-search-tag-assoc, .advanced-search-tag-assoc-select[data-i='"+i+"']"
+            hx-vars="fieldHandle:'"+handle+"', tempId:"+tempId
+            hx-swap="innerHTML"
+            hx-target="#tagContentField_"+handle+"_"+tempId
+            hx-get="/components/search/advanced/elements/parts/tag/attached/_tags_by_ids") #{ tag.handle }
+        - i++

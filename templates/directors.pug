@@ -10,7 +10,7 @@ append content
     div(id="directorsListView"
       hx-get="/components/search/list/server-side"
       hx-vars="entity_type:'director_of_surgical_services'"
-      hx-include="entity_type"
+      hx-params="entity_type"
       hx-trigger="load, sse:content"
       hx-swap="innerHTML"
       hx-target="#directorsListView")

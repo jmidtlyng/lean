@@ -51,6 +51,114 @@ module.exports = (express, api) => {
     }
   });
 
+  router.get('*/_entities_by_ids', (req, res, next)=>{
+    req.url = req.params[0];
+
+    if(req.query.fieldHandle){
+      const handle = req.query.fieldHandle;
+      const ids = req.query[handle] ? req.query[handle] : [];
+      const access = req.session.user;
+
+      for(entityType in access){
+        if(access[entityType].fields[handle] && access[entityType].fields[handle].data_type == "entities"){
+          api.entity.entitiesByIds(ids)
+            .then((entities)=>{
+              res.locals.entities = entities;
+              next();
+            }).catch((e)=>{
+              console.log(e);
+              next();
+            })
+          break;
+        }
+      }
+    } else {
+      console.log("No field handle");
+      next();
+    }
+  })
+
+  router.get('*/_entities_outside_ids', (req, res, next)=>{
+    req.url = req.params[0];
+
+    if(req.query.fieldHandle){
+      const handle = req.query.fieldHandle;
+      const ids = req.query[handle] ? req.query[handle] : [];
+      const access = req.session.user;
+
+      for(entityType in access){
+        if(access[entityType].fields[handle] && access[entityType].fields[handle].data_type == "entities"){
+          api.entity.entitiesOutsideIds(ids, access[entityType].fields[handle].settings.source)
+            .then((entities)=>{
+              res.locals.entities = entities;
+              next();
+            }).catch((e)=>{
+              console.log(e);
+              next();
+            })
+          break;
+        }
+      }
+    } else {
+      console.log("No field handle");
+      next();
+    }
+  })
+
+  router.get('*/_tags_by_ids', (req, res, next)=>{
+    req.url = req.params[0];
+
+    if(req.query.fieldHandle){
+      const handle = req.query.fieldHandle;
+      const ids = req.query[handle] ? req.query[handle] : [];
+      const access = req.session.user;
+
+      for(entityType in access){
+        if(access[entityType].fields[handle] && access[entityType].fields[handle].data_type == "tags"){
+          api.tag.tagsByIds(ids)
+            .then((tags)=>{
+              res.locals.tags = tags;
+              next();
+            }).catch((e)=>{
+              console.log(e);
+              next();
+            })
+          break;
+        }
+      }
+    } else {
+      console.log("No field handle");
+      next();
+    }
+  })
+
+  router.get('*/_tags_outside_ids', (req, res, next)=>{
+    req.url = req.params[0];
+
+    if(req.query.fieldHandle && req.query.field && req.query.search){
+      const handle = req.query.fieldHandle;
+      const ids = req.query[handle] ? req.query[handle] : [];
+      const access = req.session.user;
+
+      for(entityType in access){
+        if(access[entityType].fields[handle] && access[entityType].fields[handle].data_type == "tags"){
+          api.tag.searchTagsOutsideIds(ids, req.query.field, req.user.id, req.query.search)
+            .then((tags)=>{
+              res.locals.tags = tags;
+              next();
+            }).catch((e)=>{
+              console.log(e);
+              next();
+            })
+          break;
+        }
+      }
+    } else {
+      console.log("No field handle");
+      next();
+    }
+  })
+
   router.get('*/_tag_search', (req, res, next)=>{
     req.url = req.params[0];
 
@@ -320,8 +428,8 @@ module.exports = (express, api) => {
   function filterOutput(data, userAccess){
     var returnArray = [];
 
-    for(entityType in userAccess){
-      if(entityType.entity_type = data[0].entity_type){
+    for(access[entityType] in userAccess){
+      if(access[entityType].entity_type = data[0].entity_type){
         for(entity in data){
           var filteredRow = {};
           for(field in entity_type.fields){

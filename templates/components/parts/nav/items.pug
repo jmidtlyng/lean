@@ -5,4 +5,6 @@ if access.director_of_surgical_services && access.director_of_surgical_services.
 if access.hospital && access.hospital.access
   a(class="header-nav-node" href="/hospitals") Hospital Search  
 if access.client_partner && access.client_partner.userGroups.client_partner
-  a(class="header-nav-node" href="/palindrome") Palindrome 
+  a(class="header-nav-node" href="/quicksearch") Quicksearch 
+if access.client_partner && access.client_partner.userGroups.client_partner
+  a(class="header-nav-node" href="/advanced-search") Advanced Search 

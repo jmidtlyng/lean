@@ -7,9 +7,11 @@ append content
   script(src="/js/list.js")
   div
     h2 Hospitals
-    div(id="hospitalsListView"
-      hx-get="/components/search/list/results/_list/hospital"
+    div(id="hospitalListView"
+      hx-get="/components/search/list/server-side"
+      hx-vars="entity_type:'hospital'"
+      hx-params="entity_type"
       hx-trigger="load, sse:content"
       hx-swap="innerHTML"
-      hx-target="#hospitalsListView")
+      hx-target="#hospitalListView")
     div(id="listResultsQuickview")

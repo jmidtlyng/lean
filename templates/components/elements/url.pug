@@ -1,6 +1,6 @@
 if field.write
   form
-    input(class="inline-block" type="url" name=handle value=value)
+    input(class="inline-block" type="text" value=value name=handle)
     button(class="quickview-field-save__btn" 
       hx-post="/actions/content/update"
       hx-vars="id:"+entity.id

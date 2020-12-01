@@ -1,5 +1,6 @@
 - var matrixedTypes = ["entities", "tags", "checkboxes"]
-- var fields = currentUser.access.director_of_surgical_services.fields
+- var type = requestQuery.entity_type
+- var fields = currentUser.access[type].fields
 p(class="text-sidenote") * Hold SHIFT while clicking multiple columns to sort by multiple
 table(id="listResultsTbl")
   thead
@@ -9,7 +10,7 @@ table(id="listResultsTbl")
           th(name=handle) #{ field.name }
     tbody
 div(id="listResultsTblWrapper")
-input(type="hidden" id="serverSideSearchEntityType" value="director_of_surgical_services")
 script(defer).
-  const entityType = document.getElementById("serverSideSearchEntityType").value; 
+  const entityType = "!{type}";
+        
   gridServerSide.init("listResultsTbl", "listResultsTblWrapper", entityType);

@@ -1,0 +1,14 @@
+if tags && tags.length > 0
+  div(class="tags")
+    label Select a tag to add:
+    div
+      for tag in tags
+        form(class="inline-block")
+          input(type="hidden" name="field" value=requestQuery.field)
+          input(type="hidden" name="entity" value=requestQuery.entity)
+          input(type="hidden" name="tag" value=tag.id)
+          div(class="tags-tag--outer inline-block"
+            hx-trigger="click"
+            hx-params="field, entity, tag"
+            hx-swap="none"
+            hx-post="/actions/tag/attach") #{ tag.handle }
