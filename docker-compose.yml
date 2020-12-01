@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    container_name: the_junk_drawer-db
+    restart: always
+    ports:
+      - "65432:5432"
+    volumes:
+      - ./docker-init_scripts:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_DB: the_junk_drawer
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+  app:
+    image: node:12-alpine
+    container_name: the_junk_drawer-app
+    command: sh -c "cd core && npm install && npm run dev"
+    ports:
+      - 3000:3000
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    environment:
+      NODE_ENV: development
+
+      SECRET: Tacoplasma Moscow Mewlowetz
+      PORT: 3000
+
+      DB_USER: postgres
+      DB_HOST: the_junk_drawer-db
+      DB: the_junk_drawer
+      DB_SCHEMA: public
+      DB_PW: password
+      DB_PORT: 5432
+
+      JWT_KEY: MIIBOwIBAAJAd47aA7UgkWVw9K7WZahnovDdYkVh+jPQbD1VFp7Um943F2goRvrhTXebJ64JQwRnkq/52WsSgECSKaj+YPr6pQIDAQABAkBAuyRI25ldf1nP8JV+BtbNvrFuUniAuer/n5lhHO+pz71T7olsd8ehcD5k/79QnPqp9aolx6C8NjUZ/Etat35lAiEA2koknXLbZnBSxmQWiMC0u2lc/iv99NxdEnBLSSv/R0MCIQCMNk3QQX8nVmGHn1nqM72jJpKuXlU1rkkWUMsCKLvT9wIhANlG7ZUu60XWzf2dSHTMY9kbsi1o+npNEfM1hSqLOajjAiEAgAJADocNiKODjWd9lqXAV8iqmAlFsCm7TmVawlDgEscCIQCp/A62LvCGyZlrNhEFcIWT/ZbGuIxB/OY6I0F2thPq2g==
+      JWT_PUB: MFswDQYJKoZIhvcNAQEBBQADSgAwRwJAd47aA7UgkWVw9K7WZahnovDdYkVh+jPQbD1VFp7Um943F2goRvrhTXebJ64JQwRnkq/52WsSgECSKaj+YPr6pQIDAQAB
+
+      MSAL_APP_ID: 445fdec5-5d23-4df7-b3e9-a4e784194729
+      MSAL_APP_PASSWORD: 90.sLNwX4q~hg-~ym7JT2OOn7P~Ea6~d5P
+      MSAL_REDIRECT_URI: http://localhost:3000/auth/msal-callback
+      MSAL_SCOPES: 'openid profile offline_access user.read calendars.read'
+      MSAL_AUTHORITY: https://login.microsoftonline.com/common/
+      MSAL_ID_METADATA: v2.0/.well-known/openid-configuration
+      MSAL_AUTHORIZE_ENDPOINT: oauth2/v2.0/authorize
+      MSAL_TOKEN_ENDPOINT: oauth2/v2.0/token
+
+      GOOGLE_CLIENT_ID: 4363493756-0uvm5mqk0ijvonhptuv0mugmodqobh2m.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET: E_FSpTWnXCDVeN3Syn4I4ZIL
+      GOOGLE_REDIRECT_URI: http://localhost:3000/auth/google-callback
