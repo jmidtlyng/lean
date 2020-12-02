@@ -311,7 +311,7 @@ module.exports = (db) => {
                                     FROM tag_matrix AS tm \
                                       LEFT JOIN field AS f ON f.id = tm.field \
                                       LEFT JOIN entity AS e ON e.id = tm.entity \
-                                      LEFT JOIN tag AS t ON t.id = tm.entity \
+                                      LEFT JOIN tag AS t ON t.id = tm.tag \
                                     WHERE (tm.account = $1 OR t.ispublic)  AND f.handle = '"+handle+"' \
                                       AND tm.isarchived = false AND t.isarchived = false \
                                     GROUP BY entity) AS assoc_tag_"

@@ -81,8 +81,8 @@ module.exports = (db) => {
           var userGroup = userGroups[userGroupIter];
 
           if(userGroup.access || userGroup.create || userGroup.archive){
-            var fields = await db.any(fieldAccessQ, [userGroup.subject_type, userGroup.account_group]),
-                activities = await db.any(activityAccessQ, [userGroup.subject_type, userGroup.account_group]);
+            var fields = await db.any(fieldAccessQ, [userGroup.subject_type, userGroup.account_group])/*,
+                activities = await db.any(activityAccessQ, [userGroup.subject_type, userGroup.account_group])*/;
 
             if(accessObj[userGroup.subject_type_handle]){
               if(userGroup.access != accessObj[userGroup.subject_type_handle].access){
@@ -107,7 +107,7 @@ module.exports = (db) => {
                 } else {
                   accessObj[userGroup.subject_type_handle].fields[field.handle] = field;
                 }
-              }
+              }/*
               for(var activityIter in activities){
                 var activity = activities[activityIter];
                 if(accessObj[userGroup.subject_type_handle].activities[activity.handle]){
@@ -120,44 +120,44 @@ module.exports = (db) => {
                 } else {
                   accessObj[userGroup.subject_type_handle].activities[activity.handle] = { read: activity.read, write: activity.write }
                 }
-              }
+              }*/
             } else {
-              var entityFieldAccess = {},
-                  entityActivityAccess = {};
+              var entityFieldAccess = {}/*,
+                  entityActivityAccess = {}*/;
 
               for(var fieldIter in fields){
                 var field = fields[fieldIter];
                 entityFieldAccess[field.handle] = field;
-              }
+              }/*
               for(var activityIter in activities){
                 var activity = activities[activityIter];
                 entityActivityAccess[activity.handle] = { read: activity.read, write: activity.write }
-              }
+              }*/
               accessObj[userGroup.subject_type_handle] = {
                 name: userGroup.subject_type_name,
                 access: userGroup.access,
                 create: userGroup.create,
                 archive: userGroup.archive,
                 fields: entityFieldAccess,
-                activities: entityActivityAccess,
+                //activities: entityActivityAccess,
                 userGroups: {}
               }
             }
           }
 
           var selfFields = await db.any(selfFieldAccessQ, [userGroup.account_group]),
-              selfActivities = await db.any(selfActivityAccessQ, [userGroup.account_group]),
-              selfFieldAccess = {},
-              selfActivityAccess = {};
+              //selfActivities = await db.any(selfActivityAccessQ, [userGroup.account_group]),
+              selfFieldAccess = {}/*,
+              selfActivityAccess = {}*/;
 
           for(var fieldIter in selfFields){
             var field = selfFields[fieldIter];
             selfFieldAccess[field.handle] = field;
-          }
+          }/*
           for(var activityIter in selfActivities){
             var activity = selfActivities[activityIter];
             selfActivityAccess[activity.handle] = { read: activity.read, write: activity.write }
-          }
+          }*/
 
           if(!accessObj[userGroup.actor_type_handle]){
             accessObj[userGroup.actor_type_handle] = {
@@ -173,7 +173,7 @@ module.exports = (db) => {
 
           accessObj[userGroup.actor_type_handle].userGroups[userGroup.group_handle] = {
             fields: selfFieldAccess,
-            activities: selfActivityAccess
+            //activities: selfActivityAccess
           }
         }
 
