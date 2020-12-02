@@ -9,7 +9,6 @@ services:
       - "65432:5432"
     volumes:
       - ./docker-init_scripts:/docker-entrypoint-initdb.d
-      - ./postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: the_junk_drawer
       POSTGRES_USER: postgres
